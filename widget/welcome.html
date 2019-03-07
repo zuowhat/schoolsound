@@ -1,0 +1,256 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <style>
+        body {
+            background-color: #fff
+        }
+
+        .title {
+            height: 60px;
+            line-height: 60px;
+            font-size: 23px;
+            text-align: center;
+            margin-top: 70px;
+            color: #333333;
+        }
+
+        .sub-title {
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            font-size: 19px;
+            text-align: center;
+            color: #fff;
+            margin-bottom: 35px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #bgImg {
+            display: block;
+            width: 317px;
+            height: 342px;
+            margin: 0 auto;
+        }
+
+        #loading {
+            display: block;
+            width: 70px;
+            hright: 50px;
+            margin: 0 auto;
+            font-size: 13px;
+            color: #b7b7b7;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="title">主动发现困难群众&nbsp;助力精准救助</div>
+    <div class="sub-title">
+        低保、特困、医疗救助、临时救助
+    </div>
+    <img id="bgImg" src="image/guide-img.png" alt="引导图片">
+    <!-- <img class="loading" src="image/loading1.gif"> -->
+    <div id="loading"></div>
+</body>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript" src="./script/aui-tab.js"></script>
+<script type="text/javascript" src="./script/jq-db.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+        api.removeLaunchView();
+        api.parseTapmode();
+        //关闭当前页，防止用户点击返回又返回来这个页面
+        api.addEventListener({
+            name: 'viewdisappear'
+        }, function() {
+            api.closeWin();
+        });
+        //验证是否设置了服务器信息
+        var serverIp = $api.getStorage('serverIp');
+        if (serverIp == undefined) {
+            toLogin();
+            return false;
+        }
+        loading();
+        // api.showProgress({
+        //     title:'',
+        //     text: '加载中……',
+        //     modal: false
+        // });
+
+        fnInitDB(function(ret, err) {
+            //初始化数据库表
+            fnCreateInitTable(function() {
+                var serverIp = $api.getStorage('serverIp');
+                //获取手机里区划最后的更新时间，然后从服务器增量更新
+                db.selectSql({
+                    name: DATABASE,
+                    sql: 'SELECT MAX(LASTTIME) lastTime FROM SYS_AREA WHERE STATE <> 9'
+                }, function(ret, err) {
+                    var lastTime = ret.data[0].lastTime.replace(/T/g, ' ');
+                    initData(serverIp, lastTime, 'initData.loadAreas', function(ret) {
+                        fnInsertAreaData(ret, function() {
+                            //获取手机里数据字典最后的更新时间，然后从服务器增量更新
+                            db.selectSql({
+                                name: DATABASE,
+                                sql: 'SELECT MAX(LASTTIME) lastTime FROM SYS_DICT WHERE STATE <> 9'
+                            }, function(ret, err) {
+                                var lastTime = ret.data[0].lastTime.replace(/T/g, ' ');
+                                initData(serverIp, lastTime, 'initData.loadDicts', function(ret) {
+                                    fnInsertDictData(ret, function() {
+                                        //获取手机里救助项最后的更新时间，然后从服务器增量更新
+                                        db.selectSql({
+                                            name: DATABASE,
+                                            sql: 'SELECT MAX(LASTTIME) lastTime FROM SRI_ITEM WHERE STATE <> 9'
+                                        }, function(ret, err) {
+                                            var lastTime = ret.data[0].lastTime.replace(/T/g, ' ');
+                                            initData(serverIp, lastTime, 'initData.loadItems', function(ret) {
+                                                fnInsertItemData(ret, function() {
+                                                    //获取手机里机构最后的更新时间，然后从服务器增量更新
+                                                    db.selectSql({
+                                                        name: DATABASE,
+                                                        sql: 'SELECT MAX(LASTTIME) lastTime FROM SYS_UNIT WHERE STATE <> 9'
+                                                    }, function(ret, err) {
+                                                        var lastTime = ret.data[0].lastTime.replace(/T/g, ' ');
+                                                        initData(serverIp, lastTime, 'initData.loadUnits', function(ret) {
+                                                            fnInsertUnitData(ret, function() {
+                                                                //获取手机里救助项与区划关系最后的更新时间，然后从服务器增量更新
+                                                                db.selectSql({
+                                                                    name: DATABASE,
+                                                                    sql: 'SELECT MAX(LASTTIME) lastTime FROM SRI_AREA_ITEM'
+                                                                }, function(ret, err) {
+                                                                    var lastTime = ret.data[0].lastTime.replace(/T/g, ' ');
+                                                                    initData(serverIp, lastTime, 'initData.loadItemArea',
+                                                                        function(ret) {
+                                                                            if (ret && ret.result == '200') {
+                                                                                fnInsertAreaItemData(ret, function() {
+                                                                                    toLogin();
+                                                                                });
+                                                                            }
+                                                                        });
+                                                                });
+                                                            });
+                                                        });
+                                                    });
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    }
+    var count = 0;
+
+    function loading() {
+        var text = "加载中...";
+        var loadText = $api.byId("loading");
+        var screen = text.substr(0, count);
+        $api.html(loadText, screen);
+        count++;
+        if (count > text.length) {
+            count = 1;
+        }
+
+    }
+    setInterval(loading, 400);
+
+    function toLogin() {
+        if ($api.getStorage('isLogin') == 'yes') {
+            api.ajax({
+                url: $api.getStorage('serverIp'),
+                method: 'post',
+                timeout: 5,
+                data: {
+                    values: {
+                        sRequest: {
+                            apiKey: 'LCSD',
+                            token: 'DHJFDUNDBFNDBFKUEWUIFW',
+                            timeStamp: '1456745679',
+                            method: 'protal.login',
+                            userName: $api.getStorage('userName'),
+                            password: $api.getStorage('userPwd')
+                        }
+                    }
+                }
+            }, function(ret, err) {
+                if (ret != null && ret.result == 200) {
+                    $api.setStorage('userinfo', ret.data);
+                    api.openWin({
+                        name: 'main',
+                        url: 'index.html',
+                        bounces: false,
+                        allowEdit: true,
+                        vScrollBarEnabled: false,
+                        hScrollBarEnabled: false,
+                        slidBackEnabled: false
+                    });
+                } else {
+                    api.openWin({
+                        name: 'login',
+                        url: './login.html'
+                    });
+                }
+            });
+        } else {
+            api.openWin({
+                name: 'login',
+                url: './login.html'
+            });
+        }
+    }
+
+    /**
+     * @author: LCXU
+     * @date: 2018-11-12
+     * @desc: 从数据库获取初始化数据
+     * @param: serverIp 服务器IP
+     * @param：callback 回调函数，将获取的数据通过回调返回
+     * @param: method  服务器方法
+     */
+    function initData(serverIp, lastTime, method, callback) {
+        if (lastTime == "null" || lastTime == null || lastTime == '') {
+            lastTime = "1970-01-01 00:00:00"; //解决为null传到服务器为"null"问题
+        }
+        api.ajax({
+            url: serverIp,
+            method: 'post',
+            timeout: 5,
+            data: {
+                values: {
+                    sRequest: {
+                        apiKey: 'LCSD',
+                        token: 'DHJFDUNDBFNDBFKUEWUIFW',
+                        timeStamp: '1456745679',
+                        method: method,
+                        lastTime: lastTime
+                    }
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                callback(ret, err);
+            } else {
+                api.toast({
+                    msg: '网络请求超时，请稍候重试!',
+                    duration: 4000,
+                    location: 'bottom',
+                    global: true
+                });
+                toLogin();
+            }
+        });
+    }
+</script>
+
+</html>

@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="./css/aui.css" />
+<title>课程表demo</title>
+    <style>
+
+    .course_table{ width: 100%;border-spacing: 0;}
+    .course_table th{ height: 2.5em; background: #f3f8f8;color: #6d8498; font-weight: 400;font-size: 0.95em;}
+    .course_table td{font-size:0.925em;height: 3em;border-bottom: 1px dashed #eee;text-align: center;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
+    .course_table tr td:first-child {background: #f3f8f8;color: #698196;border-bottom: none;}
+
+    .add{background:#e1ebf2 center no-repeat;background-size: 100% 100%;height: 100%;color: #999999;line-height: 3em;width: 3em;margin:0 auto;
+        font-size: 0.925em;display: none;}
+    .add span{font-size: 1.25em;color: #7993ab;}
+    .add.on{display: block;}
+    .course_all{padding-bottom: 0.5em;}
+            .yuwen,.shuxue,.yingyu,.wuli,.huaxue,.shengwu,.lishi,.zhengzhi,.meishu,.tiyu,.dili,.yinyue,.dele{font-size:0.925em;background: #adbeff; color: #FFF;width: 3em;  height: 100%;padding: 3px 0;box-sizing: border-box; margin: 0 auto; border-radius: 0.5em; line-height: 2em; background-url:none;}
+            .shuxue{background: #ff9e9f;}  .lishi{background: #ff9e9e;}
+            .yingyu{background: #ffdf62;}  .zhengzhi{background: #61e7f0;}
+            .wuli{background: #e4e275;}    .meishu{background: #fdc081;}
+            .huaxue{background: #c2b4f6;}  .dili{background: #62e48a;}
+            .shengwu{background: #ffc262;} .tiyu{background: #c2ec5c;}
+            .dele{background: #FFF;    color: #666666;} .yinyue{background: #c2ec5c;}
+            .course_all div{margin-right: 0.5em;}
+            .course_all div:nth-child(7){margin-right: 0;}
+            .add_kemu{padding: 0.5em;background: #ff9e9f;color: #FFF;border-radius: 0.25em;font-size: 0.85em;margin-left: 0.5em;}
+
+    .course_all{padding:0.75em 0.5em 0em 0.5em;}
+    .course_all div{width: 3em;height: 3em;text-align: center;display: inline-block;margin-bottom: 0.5em;}
+
+    </style>
+
+</head>
+<body>
+
+  <table class="course_table">
+      <tbody id="course_html">
+          <tr><th width="30"></th><th>周一</th><th>周二</th><th>周三</th><th>周四</th><th>周五</th><th>周六</th></tr>
+          <tr>
+              <td>1</td>
+              <td id="1_1" onclick="add_course(1,1)" class="shuxue">数学</td>
+              <td id="2_1" onclick="add_course(2,1)"><div class="add on">+</div></td>
+              <td id="3_1" onclick="add_course(3,1)"><div class="add">+</div></td>
+              <td id="4_1" onclick="add_course(4,1)"><div class="add">+</div></td>
+              <td id="5_1" onclick="add_course(5,1)"><div class="add">+</div></td>
+              <td id="6_1" onclick="add_course(6,1)"><div class="add">+</div></td>
+          </tr>
+          <tr>
+              <td>2</td>
+              <td id="1_2" onclick="add_course(1,2)"><div class="add">+</div></td>
+              <td id="2_2" onclick="add_course(2,2)"><div class="add">+</div></td>
+              <td id="3_2" onclick="add_course(3,2)"><div class="add">+</div></td>
+              <td id="4_2" onclick="add_course(4,2)"><div class="add">+</div></td>
+              <td id="5_2" onclick="add_course(5,2)"><div class="add">+</div></td>
+              <td id="6_2" onclick="add_course(6,2)"><div class="add">+</div></td>
+          </tr>
+      </tbody>
+  </table>
+
+  <!--弹出的课程选择代码-->
+  <div>
+          <div class="weui-mask" id="iosMask" style="display: none"></div>
+          <div class="weui-actionsheet" id="iosActionsheet">
+              <div class="weui-picker__hd"> <a href="javascript:;" data-action="cancel" class="weui-picker__action" id="iosActionsheetCancel">取消</a> <a href="javascript:;" data-action="select" class="weui-picker__action" id="weui-picker-confirm">确定</a> </div>
+              <div class="course_all">
+                  <div class="yuwen" id="yuwen" onclick="choice(this.id)">语文</div>
+                  <div class="shuxue" id="shuxue" onclick="choice(this.id)">数学</div>
+                  <div class="yingyu" id="yingyu" onclick="choice(this.id)">英语</div>
+              </div>
+          </div>
+      </div>
+
+</body>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript" src="./script/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+
+    apiready = function() {
+       $(".add").eq(0).addClass("on");
+       var $iosActionsheet = $('#iosActionsheet');
+       var $iosMask = $('#iosMask');
+
+
+       $iosMask.on('click', hideActionSheet);
+       $('#iosActionsheetCancel').on('click', hideActionSheet);
+       $(".add").on("click", function(){
+           $(this).addClass("on");
+       });
+
+       //加号
+       $(".course_table td").click(function(){
+           $(".add").hide();
+           if($(this).find(".add")){
+               $(this).children(".add").show();
+           }
+       })
+
+
+   }
+
+var week='';
+var num='';
+//添加课程
+function add_course(i,n){
+   week=i; num=n;
+   $('#iosActionsheet').addClass('weui-actionsheet_toggle');
+   $('#iosMask').fadeIn(200);
+
+}
+//隐藏课程
+function hideActionSheet() {
+   $('#iosActionsheet').removeClass('weui-actionsheet_toggle');
+   $('#iosMask').fadeOut(200);
+}
+
+
+//选择课程
+function choice(i){
+   var subject=$("#"+i).html();
+   var tdclass=$("#"+i).attr('class');
+    var html=$("#"+i).clone().removeAttr('onclick');
+    $("#"+week+"_"+num).html(html);
+    hideActionSheet();
+}
+
+
+
+
+
+</script>
+</html>

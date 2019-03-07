@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/aui.css" />
+</head>
+<style type="text/css">
+    body {
+        background: #fff;
+    }
+</style>
+
+<body>
+    <div class="aui-content">
+        <div style="width:100%" id="resultList">
+            <ul class="aui-list aui-list-in" id="resultListLi">
+            </ul>
+        </div>
+    </div>
+
+</body>
+<script type="text/javascript" src="../../../script/api.js"></script>
+<script type="text/javascript">
+    var destLat, destLon, startLon, startLat, dmap;
+    apiready = function() {
+        api.parseTapmode();
+        destLat = api.pageParam.destLat;
+        destLon = api.pageParam.destLon;
+        dmap = api.require('bMap');
+        if (destLat == "" && destLon == "") {
+            dmap.getLocation(function(ret, err) {
+                startLon = ret.lon;
+                startLat = ret.lat;
+                getNameFromCoords(startLon,startLat);
+            });
+        } else {
+            getNameFromCoords(destLon,destLat);
+        }
+    }
+
+    /*
+     *根据坐标查找地址
+     *获取我的坐标地址
+     */
+    function getNameFromCoords(lon, lat) {
+        api.showProgress({
+            style: 'default',
+            animationType: 'fade',
+            title: '定位中...',
+            text: '请稍候...',
+            modal: false
+        });
+        dmap.getNameFromCoords({
+            lon: lon,
+            lat: lat
+        }, function(ret, err) {
+            api.hideProgress();
+            if (ret.status) {
+                setDaohangResult(ret);
+            }
+        });
+    }
+
+    /**
+     * @desc: 设置默认搜素结果
+     * @author: xizc
+     * @Date: 2018-12-29
+     * @param: ret 默认点的附近的定位点
+     */
+    function setDaohangResult(ret) {
+        var resListHtml = "";
+        var nodes = ret.poiList;
+        resListHtml += '<li class="aui-list-item" onclick="select(\''+ ret.address +'\',\''+ ret.lon +'\',\''+ ret.lat +'\');">' +
+            '<div class="aui-list-item-inner">' +
+            '<div class="aui-list-item-title"> 1:' + ret.address + '</div>' +
+            '</div>' +
+            '</li>';
+        for (var i = 1; i < nodes.length; i++) {
+            var number = i + 1;
+            resListHtml += '<li class="aui-list-item" onclick="select(\''+ ret.poiList[i].address +'\',\''+ ret.poiList[i].coord.lon +'\',\''+ ret.poiList[i].coord.lat +'\');">' +
+    //resListHtml += '<li class="aui-list-item" onclick="select('+ nodes[i].address +','+ nodes[i].coord.lon +','+ nodes[i].coord.lat +');">' +
+                '<div class="aui-list-item-inner">' +
+                '<div class="aui-list-item-title">' + number + ":" + nodes[i].name + '</div>' +
+                '</div>' +
+                '</li>';
+        }
+        var resultListLi = $api.byId("resultListLi");
+        $api.html(resultListLi, resListHtml);
+    }
+
+    /**
+     * @desc: 设置搜素结果
+     * @author: xizc
+     * @Date: 2018-12-29
+     * @param: ret 百度搜索点的附近的定位点
+     */
+    function setResult(ret) {
+        var resListHtml = "";
+        var index = $api.strToJson(ret)
+        for (var i in index) {
+            var number = parseInt(i) + 1;
+            resListHtml += '<li class="aui-list-item" onclick="select(\''+ index[i].address +'\',\''+ index[i].lon +'\',\''+ index[i].lat +'\');">' +
+                '<div class="aui-list-item-inner">' +
+                '<div class="aui-list-item-title">' + number + ":" + index[i].name + '</div>' +
+                '</div>' +
+                '</li>';
+        }
+        var resultListLi = $api.byId("resultListLi");
+        $api.html(resultListLi, resListHtml);
+    }
+
+    /**
+     * @desc:
+     * @author: xizc
+     * @Date: 2018-12-29
+     */
+    function select(address , lon , lat) {
+        $api.setStorage('address', address);
+        $api.setStorage('lon', lon);
+        $api.setStorage('lat', lat);
+        var winName = api.pageParam.winName;
+        var frameName = api.pageParam.frameName;
+        if (winName && frameName) {
+                api.execScript({
+                    name: winName,
+                    frameName: frameName,
+                    script: 'getStorage()'
+                });
+            }
+        api.closeWin({
+            name: 'baidu_location_win'
+        });
+    }
+</script>
+
+</html>
