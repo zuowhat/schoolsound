@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="./css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="./css/jq-base.css" />
+    <link rel="stylesheet" type="text/css" href="./css/jq-login.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="background-image" style="margin-left:35px;"></div>
+        <div class="title">校声</div>
+        <section class="form">
+            <form action="#">
+                <div class="user_name_psword">
+                    <span class="name"></span>
+                    <input type="text" placeholder="请输入您账号" id="userName">
+                    <!-- <span class="delete" onclick="emptyInputContent('userName')"></span> -->
+                </div>
+                <div class="user_name_psword">
+                    <span class="psword"></span>
+                    <input type="password" placeholder="请输入您密码" id="userPwd">
+                    <span class="pwd_hide" onclick="pwdShowOrHide()" id="pwdeye"></span>
+                    <!-- <span class="delete" onclick="emptyInputContent('userPwd')"></span> -->
+                </div>
+            </form>
+
+            <div class="submit" onclick="loginBtn()" tapmode>登录</div>
+        </section>
+
+    </div>
+</body>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript" src="./script/jq-db.js"></script>
+<script type="text/javascript" src="./script/jq.js"></script>
+<script type="text/javascript" src="./script/jq-module.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+        api.parseTapmode();
+        //应用退出事件监听
+        var flag = false;
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err) {
+            if (false == flag) {
+                $jq.toast('再按一次退出应用');
+                flag = true;
+                setTimeout(function() {
+                    flag = false;
+                }, 2000);
+            } else {
+                api.closeWidget({
+                    silent: true
+                });
+            }
+        });
+
+    };
+
+
+
+    /**
+     * @author: zuoc
+     * @date: 2018-11-07
+     * @desc: 用户登录
+     */
+    function loginBtn() {
+        api.openWin({
+            name: 'main',
+            url: 'index.html',
+            allowEdit: true,
+            bounces: false,
+            vScrollBarEnabled: false,
+            hScrollBarEnabled: false,
+            slidBackEnabled: false
+        });
+    }
+
+</script>
+
+</html>

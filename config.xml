@@ -14,7 +14,7 @@
 
     </author>
 
-    <content src="widget/demo1.html"/>
+    <content src="widget/login.html"/>
 
     <access origin="*"/>
 
