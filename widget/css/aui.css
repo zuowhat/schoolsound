@@ -2763,3 +2763,12 @@ input[type="search"]::-webkit-search-cancel-button {
 .icon-vpn:before {content: "\e114";color: #d4237a;}
 .icon-pwdshow:before {content: "\e116";color: #CCCCCC;}
 .icon-pwdhide:before {content: "\e115";color: #CCCCCC;}
+.icon-out:before {content: "\e117";color: #FFFFFF;}
+.icon-dtfx:before {content: "\e118";color: #d4237a;}
+.icon-grxx:before {content: "\e119";color: #66cc66;}
+.icon-cjcx:before {content: "\e120";color: #1296db;}
+.icon-kbcx:before {content: "\e121";color: #6769c9;}
+.icon-zxxk:before {content: "\e122";color: #E46414;}
+.icon-swzl:before {content: "\e123";color: #13227a;}
+.icon-bbq:before {content: "\e124";color: #d81e06;}
+.icon-ykt:before {content: "\e125";color: #1abc9c;}

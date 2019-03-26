@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="./css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="./css/jq-base.css" />
+    <link rel="stylesheet" type="text/css" href="./css/jq-index.css" />
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="content">
+            <div class="box" tapmode onclick="dtfx()">
+                <div class="icon icon1"></div>
+                <span>动态分享</span>
+            </div>
+            <div class="box" tapmode onclick="grxx()">
+                <div class="icon icon2"></div>
+                <span>个人信息</span>
+            </div>
+            <div class="box" tapmode onclick="cjcx()">
+                <div class="icon icon3"></div>
+                <span>成绩查询</span>
+            </div>
+            <div class="box" tapmode onclick='kbcx()'>
+                <div class="icon icon4"></div>
+                <span>课表查询</span>
+            </div>
+            <div class="box" tapmode onclick="zxxk()">
+                <div class="icon icon5"></div>
+                <span>在线选课</span>
+            </div>
+            <div class="box" tapmode onclick="swzl()">
+                <div class="icon icon6"></div>
+                <span>失物招领</span>
+            </div>
+            <div class="box" tapmode onclick="bbq()">
+                <div class="icon icon7"></div>
+                <span>表白墙</span>
+            </div>
+            <div class="box" tapmode onclick="ykt()">
+                <div class="icon icon8"></div>
+                <span>一卡通</span>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+        api.parseTapmode();
+        var UIScrollPicture = api.require('UIScrollPicture');
+        UIScrollPicture.open({
+            rect: {
+                x: 0,
+                y: 0,
+                w: api.winWidth,
+                h: api.winHeight / 3
+            },
+            data: {
+                paths: [
+                    './image/h1.png',
+                    './image/h2.png',
+                    './image/h3.png'
+                ]
+            },
+            styles: {
+                caption: {
+                    height: 35,
+                    color: '#E0FFFF',
+                    size: 13,
+                    bgColor: '#696969',
+                    position: 'bottom'
+                },
+                indicator: {
+                    dot: {
+                        w: 10,
+                        h: 10,
+                        r: 5,
+                        margin: 20
+                    },
+                    align: 'center',
+                    color: '#808080',
+                    activeColor: '#FFFFFF'
+                }
+            },
+            placeholderImg: './image/name.png',
+            contentMode: 'scaleToFill',
+            interval: 3,
+            fixedOn: api.frameName,
+            loop: true,
+            fixed: false
+        }, function(ret, err) {
+            if (ret) {
+                //alert(JSON.stringify(ret));
+            } else {
+                //alert(JSON.stringify(err));
+            }
+        });
+
+
+
+    };
+
+    /**
+     * @author: zuoc
+     * @date: 2019-03-26
+     * @desc: 动态分享
+     */
+    function dtfx() {
+        api.openWin({
+            name: 'dtfx_win',
+            url: './html/dtfx/dtfx_win.html'
+        });
+    }
+
+    /**
+     * @author: zuoc
+     * @date: 2019-03-26
+     * @desc: 个人信息
+     */
+    function grxx() {
+        api.openWin({
+            name: 'grxx_win',
+            url: './html/grxx/grxx_win.html'
+        });
+    }
+
+    /**
+     * @author: zuoc
+     * @date: 2019-03-26
+     * @desc: 成绩查询
+     */
+    function cjcx() {
+        api.openWin({
+            name: 'cjcx_win',
+            url: './html/cjcx/cjcx_win.html'
+        });
+    }
+
+    /**
+     * @author: zuoc
+     * @date: 2019-03-26
+     * @desc: 课表查询
+     */
+    function kbcx() {
+        api.openWin({
+            name: 'kbcx_win',
+            url: './html/kbcx/kbcx_win.html'
+        });
+    }
+
+    /**
+     * @author: zuoc
+     * @date: 2019-03-26
+     * @desc: 在线选课
+     */
+    function zxxk() {
+        api.openWin({
+            name: 'zxxk_win',
+            url: './html/zxxk/zxxk_win.html'
+        });
+    }
+
+    /**
+     * @author: zuoc
+     * @date: 2019-03-26
+     * @desc: 失物招领
+     */
+    function swzl() {
+        api.openWin({
+            name: 'swzl_win',
+            url: './html/swzl/swzl_win.html'
+        });
+    }
+
+    /**
+     * @author: zuoc
+     * @date: 2019-03-26
+     * @desc: 表白墙
+     */
+    function bbq() {
+        api.openWin({
+            name: 'bbq_win',
+            url: './html/bbq/bbq_win.html'
+        });
+    }
+
+    /**
+     * @author: zuoc
+     * @date: 2019-03-26
+     * @desc: 一卡通
+     */
+    function ykt() {
+        api.openWin({
+            name: 'ykt_win',
+            url: './html/ykt/ykt_win.html'
+        });
+    }
+</script>
+
+</html>
