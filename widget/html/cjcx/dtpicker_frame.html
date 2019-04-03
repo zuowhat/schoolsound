@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>日期选择</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <link rel="stylesheet" href="../../css/mui/dist/css/mui.min.css">
+    <link rel="stylesheet" href="../../css/mui/plugin/picker/dist/css/mui.picker.min.css">
+    <link rel="stylesheet" href="../../css/jq-base.css">
+    <link rel="stylesheet" href="../../css/jq-static.css">
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../css/mui/dist/js/mui.min.js"></script>
+    <script type="text/javascript" src="../../css/mui/plugin/picker/dist/js/mui.picker.all.static.js"></script>
+    <style>
+    html,
+    body {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-flex-flow: column;
+        flex-flow: column;
+        height: 100%;
+        background-color: transparent;
+    }
+    section {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        overflow: auto;
+    }
+    </style>
+</head>
+
+<body>
+    <section tapmode onclick="fnCloseFrame();"></section>
+</body>
+<script type="text/javascript">
+apiready = function() {
+    var winName = api.pageParam.winName;
+    var dateType = api.pageParam.dateType;
+    var showTime = api.pageParam.showTime;
+    var selectDate = api.pageParam.selectDate;
+    var currentDate = new Date();
+    var year = currentDate.getFullYear();
+    var month = currentDate.getMonth();
+    if ('year' == dateType) {
+        var dtPicker = new mui.DtPicker({
+            type: 'year',//设置日历初始视图模式
+            value: selectDate,
+            beginDate: new Date(year-4, 0),//设置开始日期
+            endDate: new Date(year, month)//设置结束日期
+        });
+        dtPicker.show(function (selectItems) {
+            api.execScript({
+                name: winName,
+                script: 'setQueryDate(\''+ selectItems.y.value +'\', \'\', \'\');'
+            });
+        })
+    } else if ('month' == dateType){
+        var dtPicker = new mui.DtPicker({
+            type: 'month',//设置日历初始视图模式
+            value: selectDate,
+            beginDate: new Date(year-4, 0),//设置开始日期
+            endDate: new Date(year, month)//设置结束日期
+        });
+        dtPicker.show(function (selectItems) {
+            api.execScript({
+                name: winName,
+                script: 'setQueryDate(\''+ selectItems.y.value +'\', \''+ selectItems.m.value +'\', \'\');'
+            });
+        })
+    } else if ('quarter' == dateType) {
+        var picker = new mui.PopPicker({
+            layer: 2
+        });
+        picker.setData(setQuarterData());
+        picker.pickers[0].setSelectedIndex(0);
+        picker.pickers[1].setSelectedIndex(0);
+        picker.show(function(SelectedItem) {
+      
+            api.execScript({
+                name: 'cjcx_win',
+                frameName: 'cjcx_frm',
+                script: 'setQueryDate(\''+ SelectedItem[0].value +'\', \'\', \''+ SelectedItem[1].value +'\');'
+            });
+            fnCloseFrame();
+        })
+    } else if ('showTime' == dateType){
+        var dtPicker = new mui.PopPicker();
+        dtPicker.setData(showTime);
+        dtPicker.show(function (selectItems) {
+            api.execScript({
+                name: winName,
+                script: 'setQueryDate(\''+ selectItems[0].value +'\', \'\', \'\');'
+            });
+            fnCloseFrame();
+        })
+    }
+};
+function fnCloseFrame() {
+    api.closeFrame();
+}
+
+/**
+ * @author: gaowei
+ * @date: 2018-12-18
+ * @desc: 设置季度数据
+*/
+
+function setQuarterData() {
+    var objArr = [];
+    var childrenArr = [
+        {value:"上学期",text:"上学期"},
+        {value:"下学期",text:"下学期"}
+    ];
+    var myDate = new Date();//获取系统当前时间
+    var year = myDate.getFullYear();
+    for (var i=0; i<4; i++) {
+        var quarterData = {
+            value:year - i,
+            text:year - i,
+            children:childrenArr
+        };
+        objArr.push(quarterData);
+    }
+    return objArr;
+}
+</script>
+
+</html>

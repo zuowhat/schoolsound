@@ -1,0 +1,204 @@
+
+.back-box{
+    padding-left:10px;
+}
+.consult-box .title{
+    border-left:5px solid #067eee;
+    padding-left:15px;
+    margin:10px 0;
+}
+.aui-row > div{
+    border-left:1px solid #f6f7fc;
+    border-bottom:1px solid #f6f7fc;
+}
+.icon{
+    width:32px;
+    height:32px;
+    margin-left: 35%;
+}
+.icon-line1{
+    background: url(../image/static/line1.png) no-repeat center;
+    background-size: 100% 100%;
+}
+.icon-pie1{
+    background: url(../image/static/pie1.png) no-repeat center;
+    background-size: 100% 100%;
+}
+.icon-chart1{
+    background: url(../image/static/chat1.png) no-repeat center;
+    background-size: 100% 100%;
+}
+.icon-chart2{
+    background: url(../image/static/chat2.png) no-repeat center;
+    background-size: 100% 100%;
+}
+.icon-chart3{
+    background: url(../image/static/chat3.png) no-repeat center;
+    background-size: 100% 100%;
+}
+.icon-chart4{
+    background: url(../image/static/chat4.png) no-repeat center;
+    background-size: 100% 100%;
+}
+.icon-chart5{
+    background: url(../image/static/chat5.png) no-repeat center;
+    background-size: 100% 100%;
+}
+
+
+.tab-box{
+    width:100%;
+    height:50px;
+    padding:10px 20px;
+    border-bottom:1px solid #e8e8e8;
+    position: relative;
+}
+.mui-bar .mui-icon {
+    font-size: 28px;
+}
+.mui-btn-blue {
+     color: #fff !important;
+     border: 1px solid #067eee !important;
+     background-color: #067eee !important;
+ }
+.mui-btn-gray {
+    color: #666666;
+    border: 1px solid #e2e3e7;
+    background-color: #e2e3e7;
+}
+.date-icon{
+    width:40%;
+    height:30px;
+    line-height: 30px;
+    /*position: absolute;*/
+    top:0;
+    padding-right:24px;
+    text-align: right;
+    color: #999999;
+}
+.calendarIcon{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 14px;
+    right: 16px;
+    background: url(../image/date.png) no-repeat center;
+    background-size: 100% 100%;
+}
+.echart-box{
+    height: 450px;
+    border: 1px solid #e2e3e7;
+}
+.bottom{
+    width:100%;
+    height:50px;
+    border:1px solid #e1e1e1;
+    position: fixed;
+    bottom:0;
+    font-size:16px;
+}
+.bottom > div{
+    float:left;
+    width:50%;
+    background-color: #f3f3f5;
+    line-height: 50px;
+    color:#999999;
+}
+.bottom > div.right{
+    color: #067eee;
+    border-left:1px solid #e1e1e1;
+}
+.bottom .icon-box{
+    margin:0 auto;
+    width:100px;
+    height: 50px;
+}
+.bottom .left-icon{
+    display: inline-block;
+    position: relative;
+    top: 5px;
+    margin-right: 8px;
+    width:23px;
+    height:23px;
+    background: url(../image/left0.png) no-repeat center;
+    background-size: 100% 100%;
+}
+.bottom .right-icon{
+    display: inline-block;
+    position: relative;
+    top:5px;
+    margin-right: 8px;
+    width:23px;
+    height:23px;
+    background: url(../image/right1.png) no-repeat center;
+    background-size: 100% 100%;
+
+}
+/*日时分不显示*/
+.mui-dtpicker-title h5[data-id="title-d"],.mui-dtpicker-title h5[data-id="title-h"],.mui-dtpicker-title h5[data-id="title-i"]  {
+   display: none;
+}
+.mui-dtpicker-body div[data-id="picker-d"],.mui-dtpicker-body div[data-id="picker-h"],.mui-dtpicker-body div[data-id="picker-i"] {
+    display: none;
+}
+
+/*年*/
+[data-type="year"] .mui-picker,
+[data-type="year"] .mui-dtpicker-title h5 {
+	width: 100%;
+}
+[data-type="year"] [data-id="picker-m"],
+[data-type="year"] [data-id="title-m"] {
+	display: none;
+}
+
+
+.table-box{
+    padding: 0 10px;
+}
+.table-box .table-title{
+    text-align: center;
+    height:45px;
+    line-height:45px;
+    font-size:17px;
+    color:#333333;
+ }
+
+.table-box table{
+    margin-top: 4px;
+    width:100%;
+    color:#666666;
+}
+.table-box table thead{
+    background-color:#F0F0F0;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+}
+.table-box table tr td{
+    height:30px;
+    font-size: 12px;
+    border:1px solid #e8e8e8;
+}
+.table-box table tbody tr td {
+    text-align: center;
+}
+/*.table-box table tbody tr td:nth-child(1),.table-box table tbody tr td:nth-child(2) {
+    text-align: center;
+}
+.table-box table  tbody tr td:nth-child(3),.table-box table tbody tr td:nth-child(4) {
+    text-align: right;
+    padding-right:10px;
+}*/
+.elHide {display: none;}
+
+/*固定列滚动表格*/
+.spe-table {overflow: auto; border-collapse: collapse;}
+.table-container {width: 100%; overflow: auto; margin: 5px auto!important;}
+.spe-table tr, .spe-table td {height: 32px; vertical-align: middle;}
+.spe-table td {white-space: nowrap; padding: 0 5px; text-align: center; z-index: 1; background-color: #fff;}
+.spe-table thead tr td{background-color: #F0F0F0;}
+.spe-table tbody tr:last-child td {border-bottom: 1px solid #ddd;}
+.outer-container {padding-left: 108px}
+.spe-table .fixed-td {position: absolute; left: 10px; width: 110px; z-index: 2; height: 33px; line-height: 33px; border-bottom: none}
+.spe-table .fixed-td:last-child {border-bottom: 1px solid #ddd;}

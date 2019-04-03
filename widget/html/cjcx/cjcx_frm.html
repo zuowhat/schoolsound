@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <link rel="stylesheet" href="../../css/mui/dist/css/mui.min.css">
+    <link rel="stylesheet" href="../../css/jq-base.css">
+    <link rel="stylesheet" href="../../css/jq-static.css">
+    <script type="text/javascript" src="../../script/jq-static.js"></script>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/doT.min.js"></script>
+    <style type="text/css">
+
+
+    </style>
+</head>
+
+<body>
+  <section class="tab-box" id="section">
+      <div style="float:left;">
+          <button type="button" class="mui-btn mui-btn-gray mui-btn-blue" id="buttonMonth" tapmode>2019年上学期</button>
+      </div>
+      <div id="iconMonth" onclick="fnOpenDtPickerFrame('month', this);">
+          <div class="date-icon" style="float:right;" id="dataTextMonth" tapmode></div>
+          <div class="calendarIcon"></div>
+      </div>
+  </section>
+  <div id="mainList" class="table-box"></div>
+</body>
+<script type="text/template" id="template">
+    <table>
+        <thead>
+            <tr>
+                <td>课程名称</td>
+                <td>成绩</td>
+            </tr>
+        </thead>
+        <tbody>
+            {{?it}}
+              {{~it:value:index}}
+                    <tr>
+                        <td>{{= it[index].name }}</td>
+                        <td>{{= it[index].value}}</td>
+                    </tr>
+                {{~}}
+
+                {{?}}
+        </tbody>
+    </table>
+</script>
+<script type="text/javascript">
+    var data1 = [{"name":"大学英语", "value":"67"},{"name":"计算机科学导论", "value":"85"},{"name":"大学英语", "value":"93"},{"name":"数据库原理与应用", "value":"62"}];
+    var data2 = [{"name":"C语言程序设计", "value":"83"},{"name":"现代物流学", "value":"69"},{"name":"马克思主义", "value":"82"},{"name":"大学物理", "value":"91"}];
+    var data3 = [{"name":"微观经济分析", "value":"79"},{"name":"高等数学", "value":"78"},{"name":"自动控制理论", "value":"68"},{"name":"电子系统设计", "value":"88"}];
+    var data4 = [{"name":"大学语文", "value":"91"},{"name":"工程应用数学", "value":"91"},{"name":"大学计算机基础", "value":"70"},{"name":"大学英语", "value":"79"}];
+
+    apiready = function() {
+      fnSetMainListData(data1);
+    }
+
+    function setQueryDate(year, month, semester) {
+      $api.html($api.byId('buttonMonth'), year + '年' + semester);
+      if (year == '2019') {
+        fnSetMainListData(data1);
+      } else if (year == '2018') {
+        fnSetMainListData(data2);
+      } else if (year == '2017') {
+        fnSetMainListData(data3);
+      } else if (year == '2016') {
+        fnSetMainListData(data4);
+      }
+
+
+    }
+
+
+</script>
+
+</html>
