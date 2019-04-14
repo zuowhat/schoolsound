@@ -30,6 +30,7 @@
             </form>
 
             <div class="submit" onclick="loginBtn()" tapmode>登录</div>
+            <div class="submit" onclick="signIn()" tapmode>注册</div>
         </section>
 
     </div>
@@ -41,6 +42,7 @@
 <script type="text/javascript">
     apiready = function() {
         api.parseTapmode();
+        $api.setStorage('userName', "");
         //应用退出事件监听
         var flag = false;
         api.addEventListener({
@@ -61,24 +63,52 @@
 
     };
 
-
-
     /**
-     * @author: zuoc
-     * @date: 2018-11-07
+     * @author: xqq
+     * @date: 2019-04-14
      * @desc: 用户登录
      */
     function loginBtn() {
-        api.openWin({
-            name: 'main',
-            url: 'index_win.html',
-            allowEdit: true,
-            bounces: false,
-            vScrollBarEnabled: false,
-            hScrollBarEnabled: false,
-            slidBackEnabled: false
+        var userName = $api.byId('userName').value;
+        var userPwd = $api.byId('userPwd').value;
+        if (userName=="" || userPwd=="") {
+            alert("请输入账户和密码");
+            return;
+        }
+        fnSelectDataById('USERS', userName, function(ret, err) {
+            if (ret.status && ret.data[0]) {
+                if (userPwd == ret.data[0].PASSWORD) {
+                    $api.setStorage('userName', userName);
+                    api.openWin({
+                        name: 'main',
+                        url: 'index_win.html',
+                        allowEdit: true,
+                        bounces: false,
+                        vScrollBarEnabled: false,
+                        hScrollBarEnabled: false,
+                        slidBackEnabled: false
+                    });
+                } else {
+                    alert("账号或密码错误");
+                }
+            } else {
+                alert("账号未注册");
+            }
         });
     }
+
+    /**
+     * @author: xqq
+     * @date: 2019-04-14
+     * @desc: 用户注册
+     */
+    function signIn() {
+        api.openWin({
+            name: 'grxx_win',
+            url: './html/grxx/grxx_win.html'
+        });
+    }
+
 
 </script>
 

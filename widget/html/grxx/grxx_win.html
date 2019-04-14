@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+</head>
+
+<body>
+    <header class="aui-bar aui-bar-nav">
+        <div class="aui-pull-left aui-btn" tapmode onclick="api.closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>返回
+        </div>
+        <div class="aui-title" id="headText">个人信息</div>
+    </header>
+
+    <ul class="aui-list aui-form-list">
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-label">
+                    账户
+                </div>
+                <div class="aui-list-item-input">
+                    <input type="text" placeholder="账户" value="" id="ID" required>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-label">
+                    密码
+                </div>
+                <div class="aui-list-item-input">
+                    <input type="password" value="" id="PASSWORD" required>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-label">
+                    姓名
+                </div>
+                <div class="aui-list-item-input">
+                    <input type="text" placeholder="姓名" required value="" id="NAME">
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-label">
+                    性别
+                </div>
+                <div class="aui-list-item-input">
+                    <input type="text" placeholder="男/女" value="" id="SEX">
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-label">
+                    籍贯
+                </div>
+                <div class="aui-list-item-input">
+                    <input type="text" placeholder="籍贯" value=""  id="JG">
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-label">
+                    联系方式
+                </div>
+                <div class="aui-list-item-input">
+                    <input type="text" placeholder="联系方式" value="" id="PHONENUM">
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-label">
+                    院系
+                </div>
+                <div class="aui-list-item-input">
+                    <input type="text" placeholder="院系" value="" id="YX">
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-label">
+                    专业
+                </div>
+                <div class="aui-list-item-input">
+                    <input type="text" placeholder="专业" value="" id="ZY">
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-label">
+                    班级
+                </div>
+                <div class="aui-list-item-input">
+                    <input type="text" placeholder="班级" value="" id="BJ">
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item" style="display:none">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-label">
+                    一卡通余额
+                </div>
+                <div class="aui-list-item-input">
+                    <input type="number" value="" disabled=""  id="YKT">
+                </div>
+            </div>
+        </li>
+
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner aui-list-item-center aui-list-item-btn">
+                <div class="aui-btn aui-btn-info aui-margin-r-5" id="sumbitText" tapmode onclick="submit()">修改</div>
+            </div>
+        </li>
+    </ul>
+</body>
+
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jq-db.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+        var userName = $api.getStorage('userName');
+        if (userName && userName != "") {
+            fnSelectDataById('USERS', userName, function(ret, err) {
+                if (ret.status && ret.data[0]) {
+                    $api.byId('ID').value = ret.data[0].ID;
+                    $api.byId('PASSWORD').value = ret.data[0].PASSWORD;
+                    $api.byId('NAME').value = ret.data[0].NAME;
+                    $api.byId('SEX').value = ret.data[0].SEX;
+                    $api.byId('JG').value = ret.data[0].JG;
+                    $api.byId('PHONENUM').value = ret.data[0].PHONENUM;
+                    $api.byId('YX').value = ret.data[0].YX;
+                    $api.byId('ZY').value = ret.data[0].ZY;
+                    $api.byId('BJ').value = ret.data[0].BJ;
+                }
+            });
+        } else {
+            $api.byId('headText').innerText = "注册";
+            $api.byId('sumbitText').innerText = "确定";
+        }
+    };
+
+    function submit() {
+        var sumbitText = $api.byId('sumbitText').innerText;
+        if (sumbitText == "修改") {
+
+        } else if (sumbitText == "确定") {
+            var ID = $api.byId('ID').value;
+            var PASSWORD = $api.byId('PASSWORD').value;
+            var NAME = $api.byId('NAME').value;
+            var SEX = $api.byId('SEX').value;
+            var JG = $api.byId('JG').value;
+            var PHONENUM = $api.byId('PHONENUM').value;
+            var YX = $api.byId('YX').value;
+            var ZY = $api.byId('ZY').value;
+            var BJ = $api.byId('BJ').value;
+            var db = api.require('db');
+            if (ID == "") {
+                alert("账户不能为空");
+                return;
+            }
+            if (PASSWORD == "") {
+                alert("密码不能为空");
+                return;
+            }
+            if (NAME == "") {
+                alert("姓名不能为空");
+                return;
+            }
+            db.executeSql({
+                name: DATABASE,
+                sql: 'INSERT INTO USERS VALUES("'+ ID
+                     +'","'+ PASSWORD
+                     +'","'+ NAME
+                     +'","'+ PHONENUM
+                     +'","'+ SEX
+                     +'","'+ YX
+                     +'","'+ BJ
+                     +'","'+ ZY
+                     +'","'+ JG + '")'
+            }, function(ret, err) {
+                if (ret.status == true) {
+                    alert("注册成功");
+                    api.closeWin();
+                } else {
+                    alert("注册失败,当前账户已被注册");
+                }
+            });
+        }
+    }
+
+</script>
+
+</html>

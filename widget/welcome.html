@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <style>
+        body {
+            background-color: #fff
+        }
+
+        .title {
+            height: 60px;
+            line-height: 60px;
+            font-size: 25px;
+            text-align: center;
+            margin-top: 70px;
+            color: #333333;
+            animation: zoomInDown 2s;
+        }
+
+        .sub-title {
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            font-size: 19px;
+            text-align: center;
+            color: #b7b7b7;
+            margin-bottom: 35px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cover {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            animation: showFont 5s linear 1.5s 1 normal forwards;
+        }
+
+        #bgImg {
+            display: block;
+            width: 317px;
+            height: 342px;
+            margin: 0 auto;
+        }
+
+        #loading {
+            display: block;
+            width: 70px;
+            hright: 50px;
+            margin: 0 auto;
+            font-size: 13px;
+            color: #b7b7b7;
+            text-align: center;
+        }
+
+        @keyframes zoomInDown {
+            from {
+                opacity: 0;
+                transform: scale3d(0.1, 0.1, 0.1) translate3d(0, -1000px, 0);
+                animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+            }
+            60% {
+                opacity: 1;
+                transform: scale3d(0.475, 0.475, 0.475) translate3d(0, 60px, 0);
+                animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);
+            }
+        }
+
+        .zoomInDown {
+            animation-name: zoomInDown;
+        }
+
+        @keyframes showFont {
+            from {
+                left: 10%;
+            }
+            10% {
+                left: 20%;
+            }
+            20% {
+                left: 30%;
+            }
+            30% {
+                left: 40%;
+            }
+            40% {
+                left: 50%;
+            }
+            50% {
+                left: 60%;
+            }
+            60% {
+                left: 70%;
+            }
+            70% {
+                left: 80%;
+            }
+            80% {
+                left: 90%;
+            }
+            90% {
+                left: 100%;
+            }
+            100% {
+                left: 120%;
+            }
+        }
+
+        .showFont {
+            animation-name: showFont;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="title">一机在手&nbsp;掌控全校</div>
+    <div class="sub-title">合肥学院校声APP
+        <div class="cover"></div>
+    </div>
+    <img id="bgImg" src="image/logo.jpg" alt="引导图片">
+    <div id="loading"></div>
+</body>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript" src="./script/aui-tab.js"></script>
+<script type="text/javascript" src="./script/jq-db.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+        setInterval(loading, 400);
+        // 初始化数据库
+        fnInitDB(function(ret, err) {
+            //初始化数据库表
+            fnInitTable(function(ret, err) {
+                api.openWin({
+                    name: 'login',
+                    url: 'login.html'
+                });
+            });
+        });
+    }
+
+    var count = 0;
+    function loading() {
+        var text = "加载中...";
+        var loadText = $api.byId("loading");
+        var screen = text.substr(0, count);
+        $api.html(loadText, screen);
+        count++;
+        if (count > text.length) {
+            count = 1;
+        }
+    }
+
+
+
+</script>
+
+</html>
