@@ -30,7 +30,7 @@
             </form>
 
             <div class="submit" onclick="loginBtn()" tapmode>登录</div>
-            <div class="submit" onclick="signIn()" tapmode>注册</div>
+            <!-- <div class="submit" onclick="signIn()" tapmode>注册</div> -->
         </section>
 
     </div>
@@ -71,10 +71,21 @@
     function loginBtn() {
         var userName = $api.byId('userName').value;
         var userPwd = $api.byId('userPwd').value;
-        if (userName=="" || userPwd=="") {
+        if (userName == "" || userPwd == "") {
             alert("请输入账户和密码");
             return;
         }
+        api.openWin({
+            name: 'main',
+            url: 'index_win.html',
+            allowEdit: true,
+            bounces: false,
+            vScrollBarEnabled: false,
+            hScrollBarEnabled: false,
+            slidBackEnabled: false
+        });
+        return;
+
         fnSelectDataById('USERS', userName, function(ret, err) {
             if (ret.status && ret.data[0]) {
                 if (userPwd == ret.data[0].PASSWORD) {
@@ -108,8 +119,6 @@
             url: './html/grxx/grxx_win.html'
         });
     }
-
-
 </script>
 
 </html>

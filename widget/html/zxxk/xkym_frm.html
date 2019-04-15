@@ -1,0 +1,261 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <style type="text/css">
+        body {
+            background-color: #f6f8fc;
+            padding: 10px;
+            font-size: 15px;
+        }
+
+        .instruction-box {
+            padding: 10px;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .instruction-box table {
+            height: 100%;
+            width: 100%;
+            border-bottom: 1px dashed #e8e8e8;
+        }
+
+        .instruction-box table tr {
+            height: 28px;
+        }
+
+        .instruction-box table tr td:first-child {
+            color: #666666;
+        }
+
+        .instruction-box table tr td:last-child {
+            text-align: right;
+        }
+
+        .statu {
+            width: 100%;
+            height: 40px;
+            position: relative;
+            color: #666;
+            padding-left: 44px;
+        }
+
+        .statu>img {
+            width: 36px;
+            height: 36px;
+            display: inline-block;
+            vertical-align: middle;
+            position: absolute;
+            top: 2px;
+            left: 0;
+        }
+
+        .statu .name {
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 40px;
+        }
+
+        .operation {
+            height: 35px;
+            position: relative;
+            padding-top: 5px;
+        }
+
+        .operation>div {
+            height: 35px;
+            line-height: 35px;
+            position: absolute;
+            width: 90px;
+            padding-left: 20px;
+            color: #666;
+        }
+
+        .operation>div.operation2 {
+            left: 120px;
+        }
+
+        .operation>div.delete {
+            width: 75px;
+            height: 28px;
+            line-height: 28px;
+            border: 1px solid #e8e8e8;
+            color: #067eee;
+            border-radius: 15px;
+            right: 0;
+            text-align: center;
+            padding-left: 0;
+            top: 8px;
+        }
+
+        .operation>div .icon {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            width: 14px;
+            height: 14px;
+        }
+
+        .operation>div.operation1 .icon {
+            background: url("../../image/teacher.png") no-repeat;
+            background-size: 14px 14px;
+        }
+
+        .operation>div.operation2 .icon {
+            background: url("../../image/date1.png") no-repeat;
+            background-size: 14px 14px;
+        }
+
+        .split {
+            width: 1px;
+            height: 15px;
+            border: 1px solid #666;
+            position: absolute;
+            left: 100px;
+            top: 15px;
+        }
+
+        .Loading,
+        .noMore {
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+        }
+
+        .Loading>img {
+            display: inline-block;
+            vertical-align: top;
+            width: 14px;
+            height: 14px;
+            margin: 3px 6px 3px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="aui-tab" id="tab">
+        <div id="item1" class="aui-tab-item aui-active">可选课程</div>
+        <div id="item2" class="aui-tab-item">已选课程</div>
+
+    </div>
+    <div id="kcList"></div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui-tab.js"></script>
+<script type="text/javascript">
+    var kxkc;
+    var yxkc;
+    var kc1;
+    var kc2;
+    var kc3;
+    var kc4;
+    apiready = function() {
+        kc1 = buildCourse('kc1', '美术作品欣赏', '张小觅', '2019.04.18', '添加课程');
+        kc2 = buildCourse('kc2', '美术作品欣赏', '张小觅', '2019.04.18', '删除课程');
+        kc3 = buildCourse('kc3', '英汉比较与翻译', '王小琼', '2019.04.21', '添加课程');
+        kc4 = buildCourse('kc4', '英汉比较与翻译', '王小琼', '2019.04.21', '删除课程');
+        kxkc = kc1;
+        yxkc = kc4;
+        $api.html($api.byId('kcList'), kxkc);
+    }
+
+    var tab = new auiTab({
+        element: document.getElementById("tab")
+    }, function(ret) {
+        if (ret) {
+            if (ret.dom.id == 'item1') {
+                $api.html($api.byId('kcList'), kxkc);
+            } else {
+                $api.html($api.byId('kcList'), yxkc);
+            }
+        }
+    });
+
+    /**
+     * @author: zuoc
+     * @date: 2019-04-15
+     * @desc: 添加或删除课程
+     */
+    function changeCourse(source) {
+        var newkc = '';
+        if (source == 'kc1') {
+            if (yxkc == '') {
+                kxkc = kc3;
+                yxkc = kc2;
+                newkc = kxkc;
+            } else {
+                kxkc = '';
+                yxkc = kc2 + kc4;
+                newkc = kxkc;
+            }
+        } else if (source == 'kc2') {
+            if (kxkc == '') {
+                kxkc = kc1;
+                yxkc = kc4;
+                newkc = yxkc;
+            } else {
+                yxkc = '';
+                kxkc = kc1 + kc3;
+                newkc = yxkc;
+            }
+        } else if (source == 'kc3') {
+            if (yxkc == '') {
+                kxkc = kc1;
+                yxkc = kc4;
+                newkc = kxkc;
+            } else {
+                kxkc = '';
+                yxkc = kc2 + kc4;
+                newkc = kxkc;
+            }
+        } else if (source == 'kc4') {
+            if (kxkc == '') {
+                kxkc = kc3;
+                yxkc = kc2;
+                newkc = yxkc;
+            } else {
+                yxkc = '';
+                kxkc = kc1 + kc3;
+                newkc = yxkc;
+            }
+        }
+        $api.html($api.byId('kcList'), newkc);
+    }
+
+    /**
+     * @author: zuoc
+     * @date: 2019-04-15
+     * @desc: 构建课程html
+     */
+    function buildCourse(source, name, teacher, date, type) {
+        var course = '<section class="instruction-box" ><div class="statu" onclick="courseInfo(\'' + source + '\')"><img src="../../image/book.png" /><span class="name">' + name + '</span></div>' +
+            '<div class="operation"><div class="operation1" tapmode onclick="courseInfo(\'' + source + '\')"><span class="icon"></span>' + teacher + '</div>' +
+            '<span class="split"></span><div class="operation2" tapmode onclick="courseInfo(\'' + source + '\')"><span class="icon"></span>' + date + '</div>' +
+            '<div class="delete" tapmode onclick="changeCourse(\'' + source + '\')">' + type + '</div></div></section>';
+        return course;
+    }
+
+    /**
+     * @author: zuoc
+     * @date: 2019-04-15
+     * @desc: 课程详情页面
+     */
+    function courseInfo(source) {
+        api.openWin({
+            name: 'courseinfo_win',
+            url: 'courseinfo_win.html',
+            pageParam: {
+                source: source
+            }
+        });
+    }
+</script>
+
+</html>

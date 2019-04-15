@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <style type="text/css">
+    .submit{
+        width:90%;
+        height:45px;
+        line-height:45px;
+        text-align: center;
+        margin-top:25px;
+        margin-left:18px;
+        background-color: #067eee;
+        color:#fff;
+        font-size:15px;
+        border-radius: 4px;
+        letter-spacing:4px;
+    }
+    </style>
+</head>
+
+<body>
+    <section class="aui-content-padded">
+        <h1 align="center">选课说明</h1>
+        <div class="aui-content">1、学生完成在线学习，通过课程考核后，可获得1个选修课学分。</div>
+        <div class="aui-content">2、第一次登录使用本人的学号作为用户名和密码，登陆后注意及时修改密码。</div>
+        <div class="aui-content">3、登录系统后应查看所选课程的相关说明：考核方式、开放时间等，在课程规定的开放时间内完成学习方可获得在线考试资格。</div>
+        <div class="aui-content">4、智慧树平台关于在线课程的属性规定，和学校通知不一致的以学校通知为准。</div>
+        <div class="aui-content">5、校内课程如选课学生数少于30人不开课。 请各位同学参考校内课程与在线课程的教学特点，根据自己的时间和学习情况合理选课，每位同学本次只选一门课程。
+        </div>
+    </section>
+    <div class="submit" onclick="coursePage()">我已认真阅读，并同意以上内容</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+      api.parseTapmode();
+    }
+
+    /**
+     * @author: zuoc
+     * @date: 2019-04-15
+     * @desc: 进入选课页面
+     */
+    function coursePage() {
+      api.openFrame({
+          name: 'zxxk_frm',
+          url: 'xkym_frm.html',
+          rect: {
+            x: 0,
+            y: api.pageParam.pageHeight,
+            w: 'auto',
+            h: api.winHeight - api.pageParam.pageHeight
+          }
+      });
+
+    }
+</script>
+
+</html>
