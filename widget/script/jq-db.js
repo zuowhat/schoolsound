@@ -27,7 +27,7 @@
   */
  function fnInitTable(callback) {
      db = api.require('db');
-    //  用户表
+     //  用户表
      db.executeSql({
          name: DATABASE,
          sql: 'CREATE TABLE USERS(ID VARCHAR(50), PASSWORD VARCHAR(30), NAME VARCHAR(20), PHONENUM VARCHAR(20),' +
@@ -39,6 +39,13 @@
                  sql: 'INSERT INTO USERS VALUES("test","1","测试","12324511523","男","计算机学院","090334","软件设计","安徽")'
              });
          }
+     });
+
+     //  失物招领表
+     db.executeSql({
+         name: DATABASE,
+         sql: 'CREATE TABLE SWZL(dsdd VARCHAR(50), dsrq VARCHAR(20), xxms VARCHAR(300),' +
+             'lxr VARCHAR(20), lxfs VARCHAR(20))'
      });
 
      callback();

@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+</head>
+
+<body>
+  <header class="aui-bar aui-bar-nav">
+      <div class="aui-pull-left aui-btn" tapmode onclick="api.closeWin()">
+          <span class="aui-iconfont aui-icon-left"></span>返回
+      </div>
+      <div class="aui-title" id="headText">失物招领</div>
+
+      <div class="aui-pull-right aui-btn" tapmode onclick="addSwzl()">
+          <span class="aui-iconfont aui-icon-plus"></span>
+      </div>
+  </header>
+  <div class="aui-card-list">
+            <div class="aui-card-list-header">
+                <div><i class="aui-iconfont aui-icon-my aui-text-danger"></i><span class="aui-text-danger"> 最近联系人</span></div>
+                <i class="aui-iconfont aui-icon-more"></i>
+            </div>
+            <div class="aui-card-list-content">
+                <ul class="aui-list aui-media-list">
+                    <li class="aui-list-item aui-list-item-middle">
+                        <div class="aui-media-list-item-inner">
+                            <div class="aui-list-item-media" style="width: 3rem;">
+                                <img src="../image/demo5.png" class="aui-img-round" >
+                            </div>
+                            <div class="aui-list-item-inner aui-list-item-arrow">
+                                <div class="aui-list-item-text">
+                                    <div class="aui-list-item-title aui-font-size-14">AUI</div>
+                                    <div class="aui-list-item-right">08:00</div>
+                                </div>
+                                <div class="aui-list-item-text">
+                                    www.auicss.com
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="aui-list-item aui-list-item-middle">
+                        <div class="aui-media-list-item-inner">
+                            <div class="aui-list-item-media" style="width: 3rem;">
+                                <img src="../image/demo1.png" class="aui-img-round">
+                            </div>
+                            <div class="aui-list-item-inner aui-list-item-arrow">
+                                APICloud AUI
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="aui-card-list-footer aui-text-center">
+                查看更多
+            </div>
+        </div>
+</body>
+
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jq-db.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+
+    };
+
+    function addSwzl() {
+      api.openWin({
+          name: 'swzl_add_win',
+          url: 'swzl_add_win.html'
+      });
+
+
+    }
+</script>
+
+</html>

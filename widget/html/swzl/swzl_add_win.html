@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+</head>
+
+<body>
+  <header class="aui-bar aui-bar-nav">
+      <div class="aui-pull-left aui-btn" tapmode onclick="api.closeWin()">
+          <span class="aui-iconfont aui-icon-left"></span>返回
+      </div>
+      <div class="aui-title" id="headText">个人信息</div>
+  </header>
+
+  <ul class="aui-list aui-form-list">
+      <li class="aui-list-item">
+          <div class="aui-list-item-inner">
+              <div class="aui-list-item-label">
+                  丢失地点
+              </div>
+              <div class="aui-list-item-input">
+                  <input type="text" placeholder="丢失地点" id="dsdd">
+              </div>
+          </div>
+      </li>
+      <li class="aui-list-item">
+          <div class="aui-list-item-inner">
+              <div class="aui-list-item-label">
+                  丢失日期
+              </div>
+              <div class="aui-list-item-input">
+                  <input type="text" placeholder="丢失日期" id="dsrq">
+              </div>
+          </div>
+      </li>
+      <li class="aui-list-item">
+          <div class="aui-list-item-inner">
+              <div class="aui-list-item-label">
+                  详细描述
+              </div>
+              <div class="aui-list-item-input">
+                  <textarea placeholder="详细描述" id="xxms"></textarea>
+              </div>
+          </div>
+      </li>
+      <li class="aui-list-item">
+          <div class="aui-list-item-inner">
+              <div class="aui-list-item-label">
+                  联系人
+              </div>
+              <div class="aui-list-item-input">
+                  <input type="text" placeholder="联系人" id="lxr">
+              </div>
+          </div>
+      </li>
+      <li class="aui-list-item">
+          <div class="aui-list-item-inner">
+              <div class="aui-list-item-label">
+                  联系方式
+              </div>
+              <div class="aui-list-item-input">
+                  <input type="text" placeholder="联系方式" id="lxfs">
+              </div>
+          </div>
+      </li>
+      <li class="aui-list-item">
+          <div class="aui-list-item-inner aui-list-item-center aui-list-item-btn">
+              <div class="aui-btn aui-btn-info aui-margin-r-5" onclick="sbumit()">提交</div>
+          </div>
+      </li>
+  </ul>
+</body>
+
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jq-db.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+
+    };
+
+    function sbumit() {
+        var dsdd = $api.byId('dsdd').value;
+        var dsrq = $api.byId('dsrq').value;
+        var xxms = $api.byId('xxms').value;
+        var lxr = $api.byId('lxr').value;
+        var lxfs = $api.byId('lxfs').value;
+        if (dsdd == "") {
+            alert("丢失地点不能为空");
+            return;
+        }
+        if (dsrq == "") {
+            alert("丢失日期不能为空");
+            return;
+        }
+        if (lxr == "") {
+            alert("联系人不能为空");
+            return;
+        }
+        if (lxfs == "") {
+            alert("联系方式不能为空");
+            return;
+        }
+        var db = api.require('db');
+        db.executeSql({
+            name: DATABASE,
+            sql: 'INSERT INTO SWZL VALUES("'+ dsdd
+                 +'","'+ dsrq
+                 +'","'+ xxms
+                 +'","'+ lxr
+                 +'","'+ lxfs + '")'
+        }, function(ret, err) {
+            if (ret.status == true) {
+                alert("保存成功");
+                api.closeWin();
+            } else {
+                alert("保存失败");
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+</script>
+
+</html>
