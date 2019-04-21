@@ -44,8 +44,14 @@
      //  失物招领表
      db.executeSql({
          name: DATABASE,
-         sql: 'CREATE TABLE SWZL(dsdd VARCHAR(50), dsrq VARCHAR(20), xxms VARCHAR(300),' +
+         sql: 'CREATE OR REPLACE TABLE SWZL(id VARCHAR(50), dsdd VARCHAR(50), dsrq VARCHAR(20), xxms VARCHAR(300),' +
              'lxr VARCHAR(20), lxfs VARCHAR(20))'
+     });
+
+     // 附件
+     db.executeSql({
+         name: DATABASE,
+         sql: 'CREATE OR REPLACE TABLE FILE(id VARCHAR(50), R_ID VARCHAR(50), URL VARCHAR(20))'
      });
 
      callback();

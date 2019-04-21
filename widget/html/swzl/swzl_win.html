@@ -19,51 +19,41 @@
       </div>
   </header>
   <div class="aui-card-list">
-            <div class="aui-card-list-header">
-                <div><i class="aui-iconfont aui-icon-my aui-text-danger"></i><span class="aui-text-danger"> 最近联系人</span></div>
-                <i class="aui-iconfont aui-icon-more"></i>
-            </div>
-            <div class="aui-card-list-content">
-                <ul class="aui-list aui-media-list">
+        <div class="aui-card-list-content">
+            <ul class="aui-list aui-media-list" id="swzl_ul">
+                <script id="interationTemp" type="text/x-dot-template">
+                {{~it:swzl:index}}
                     <li class="aui-list-item aui-list-item-middle">
                         <div class="aui-media-list-item-inner">
                             <div class="aui-list-item-media" style="width: 3rem;">
-                                <img src="../image/demo5.png" class="aui-img-round" >
+                                <img src="{{= swzl.imgUrl }}" class="aui-img-round" >
                             </div>
                             <div class="aui-list-item-inner aui-list-item-arrow">
                                 <div class="aui-list-item-text">
                                     <div class="aui-list-item-title aui-font-size-14">AUI</div>
-                                    <div class="aui-list-item-right">08:00</div>
                                 </div>
                                 <div class="aui-list-item-text">
-                                    www.auicss.com
+                                    第一食堂
+                                </div>
+                                <div class="aui-list-item-text">
+                                    2018-11-12
                                 </div>
                             </div>
                         </div>
                     </li>
-                    <li class="aui-list-item aui-list-item-middle">
-                        <div class="aui-media-list-item-inner">
-                            <div class="aui-list-item-media" style="width: 3rem;">
-                                <img src="../image/demo1.png" class="aui-img-round">
-                            </div>
-                            <div class="aui-list-item-inner aui-list-item-arrow">
-                                APICloud AUI
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="aui-card-list-footer aui-text-center">
-                查看更多
-            </div>
+                {{~}}
+                </script>
+            </ul>
         </div>
+    </div>
 </body>
 
 <script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
 <script type="text/javascript" src="../../script/jq-db.js"></script>
 <script type="text/javascript">
     apiready = function() {
-
+        $api.dom('#swzl_ul').innerHTML = doTData(dataJson);
     };
 
     function addSwzl() {
@@ -71,8 +61,11 @@
           name: 'swzl_add_win',
           url: 'swzl_add_win.html'
       });
+    }
 
-
+    function doTData(dataJson) {
+        var interation = doT.template($api.dom('#interationTemp').innerHTML);
+        return interation(dataJson);
     }
 </script>
 
