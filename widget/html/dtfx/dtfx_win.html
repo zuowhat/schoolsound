@@ -12,9 +12,9 @@
       <div class="aui-pull-left aui-btn" tapmode onclick="api.closeWin()">
           <span class="aui-iconfont aui-icon-left"></span>返回
       </div>
-      <div class="aui-title" id="headText">失物招领</div>
+      <div class="aui-title" id="headText">动态分享</div>
 
-      <div class="aui-pull-right aui-btn" tapmode onclick="addSwzl()">
+      <div class="aui-pull-right aui-btn" tapmode onclick="addDtfx()">
           <span class="aui-iconfont aui-icon-plus"></span>
       </div>
   </header>
@@ -68,10 +68,10 @@
 
     }
 
-    function addSwzl() {
+    function addDtfx() {
       api.openWin({
-          name: 'swzl_add_win',
-          url: 'swzl_add_win.html'
+          name: 'dtfx_add_win',
+          url: 'dtfx_add_win.html'
       });
     }
 

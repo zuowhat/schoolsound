@@ -48,10 +48,16 @@
              'lxr VARCHAR(20), lxfs VARCHAR(20))'
      });
 
+     // 动态分享
+     db.executeSql({
+         name: DATABASE,
+         sql: 'CREATE OR REPLACE TABLE DTFX(id VARCHAR(50), fbnr VARCHAR(500))'
+     });
+
      // 附件
      db.executeSql({
          name: DATABASE,
-         sql: 'CREATE OR REPLACE TABLE FILE(id VARCHAR(50), R_ID VARCHAR(50), URL VARCHAR(20))'
+         sql: 'CREATE OR REPLACE TABLE FILE(id VARCHAR(50), r_id VARCHAR(50), url VARCHAR(20))'
      });
 
      callback();
