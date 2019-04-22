@@ -51,7 +51,7 @@
      // 动态分享
      db.executeSql({
          name: DATABASE,
-         sql: 'CREATE OR REPLACE TABLE DTFX(id VARCHAR(50), fbnr VARCHAR(500))'
+         sql: 'CREATE OR REPLACE TABLE DTFX(id VARCHAR(50), fbnr VARCHAR(500), fxrq VARCHAR(20))'
      });
 
      // 附件
@@ -63,6 +63,25 @@
      callback();
  }
 
+function clearTable() {
+    db = api.require('db');
+    db.executeSql({
+      name: DATABASE,
+      sql: 'DELETE FROM USERS'
+    });
+    db.executeSql({
+      name: DATABASE,
+      sql: 'DELETE FROM SWZL'
+    });
+    db.executeSql({
+      name: DATABASE,
+      sql: 'DELETE FROM DTFX'
+    });
+    db.executeSql({
+      name: DATABASE,
+      sql: 'DELETE FROM FILE'
+    });
+}
  /**
   * @author: zuoc
   * @date: 2018-11-07

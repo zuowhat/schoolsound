@@ -20,7 +20,7 @@
           <div class="aui-list-item-inner">
 
               <div class="aui-list-item-input">
-                  <textarea placeholder="在这里输入内容..." id="nrfb" style="height: 150px"></textarea>
+                  <textarea placeholder="在这里输入内容..." id="fbnr" style="height: 150px"></textarea>
               </div>
           </div>
       </li>
@@ -42,7 +42,8 @@
 
     function sbumit() {
         var id = getId();
-        var nrfb = $api.byId('nrfb').value;
+        var fbnr = $api.byId('fbnr').value;
+        var fbrq = getDate();
         if (nrfb == "") {
             alert("内容发布不能为空");
             return;
@@ -50,13 +51,12 @@
         var db = api.require('db');
         db.executeSql({
             name: DATABASE,
-            sql: 'INSERT INTO SWZL VALUES("'+ dsdd
-                 +'","'+ dsrq
-                 +'","'+ xxms
-                 +'","'+ lxr
-                 +'","'+ lxfs + '")'
+            sql: 'INSERT INTO DTFX VALUES("'+ id
+                 +'","'+ fbnr
+                 +'","'+ fbrq + '")'
         }, function(ret, err) {
             if (ret.status == true) {
+                
                 alert("保存成功");
                 api.closeWin();
             } else {
@@ -68,6 +68,11 @@
     function getId() {
         var timestamp = (new Date()).getTime();
         return 'dtfx' + timestamp;
+    }
+
+    function getDate() {
+        var now = new Date();
+        return now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate();
     }
 </script>
 

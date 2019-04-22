@@ -22,7 +22,7 @@
         <div class="aui-card-list-content">
             <ul class="aui-list aui-media-list" id="swzl_ul">
                 <script id="interationTemp" type="text/x-dot-template">
-                {{~it:swzl:index}}
+                {{~it:dtfx:index}}
                     <li class="aui-list-item aui-list-item-middle">
                         <div class="aui-media-list-item-inner">
                             <div class="aui-list-item-media" style="width: 3rem;">
@@ -30,13 +30,10 @@
                             </div>
                             <div class="aui-list-item-inner aui-list-item-arrow">
                                 <div class="aui-list-item-text">
-                                    <div class="aui-list-item-title aui-font-size-14">{{= swzl.xxms }}</div>
+                                    <div class="aui-list-item-title aui-font-size-14">{{= dtfx.fbnr }}</div>
                                 </div>
                                 <div class="aui-list-item-text">
-                                    {{= swzl.dsdd }}
-                                </div>
-                                <div class="aui-list-item-text">
-                                    {{= swzl.dsrq }}
+                                    {{= dtfx.fxrq }}
                                 </div>
                             </div>
                         </div>
@@ -53,12 +50,12 @@
 <script type="text/javascript" src="../../script/jq-db.js"></script>
 <script type="text/javascript">
     apiready = function() {
-        initSwzlList();
+        initDtfxList();
 
     };
 
-    function initSwzlList() {
-        fnSelectAll('SWZL', function(ret, err) {
+    function initDtfxList() {
+        fnSelectAll('DTFX', function(ret, err) {
             if (ret.status && ret.data[0]) {
                 $api.dom('#swzl_ul').innerHTML = doTData(ret.data);
             } else {
