@@ -132,6 +132,7 @@
         var userName = $api.getStorage('userName');
         if (userName && userName != "") {
             fnSelectDataById('USERS', userName, function(ret, err) {
+                console.info(userName);
                 if (ret.status && ret.data[0]) {
                     $api.byId('ID').value = ret.data[0].ID;
                     $api.byId('PASSWORD').value = ret.data[0].PASSWORD;
