@@ -67,6 +67,27 @@
           </div>
       </li>
       <li class="aui-list-item">
+          <div class="aui-list-item-inner">
+              <div class="aui-list-item-label">
+                  照片
+              </div>
+          </div>
+      </li>
+      <li class="aui-list-item">
+          <div class="aui-list-item-inner">
+              <div class="aui-list-item-label">
+                  照片
+              </div>
+          </div>
+      </li>
+      <div class="aui-card-list-content-padded aui-border-b aui-border-t">
+        <div class="aui-row aui-row-padded">
+            <div class="aui-col-xs-4">
+                <img src="../../image/upimg.png" onclick="addImg()"/>
+            </div>
+        </div>
+      </div>
+      <li class="aui-list-item">
           <div class="aui-list-item-inner aui-list-item-center aui-list-item-btn">
               <div class="aui-btn aui-btn-info aui-margin-r-5" onclick="sbumit()">发布</div>
           </div>
@@ -114,7 +135,7 @@
         }, function(ret, err) {
             if (ret.status == true) {
                 alert("保存成功");
-                
+
                 api.closeWin();
             } else {
                 alert("保存失败");
