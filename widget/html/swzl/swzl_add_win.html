@@ -176,7 +176,11 @@
                 saveImg(id, 'img_1');
                 saveImg(id, 'img_2');
                 saveImg(id, 'img_3');
-                api.closeWin();
+                api.openWin({
+                    name: 'swzl_win',
+                    url: 'swzl_win.html',
+                    reload: true
+                });
             } else {
                 console.info(JSON.stringify(err));
                 alert("保存失败");

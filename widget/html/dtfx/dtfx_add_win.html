@@ -105,7 +105,11 @@
                 saveImg(id, 'img_1');
                 saveImg(id, 'img_2');
                 saveImg(id, 'img_3');
-                api.closeWin();
+                api.openWin({
+                    name: 'dtfx_win',
+                    url: 'dtfx_win.html',
+                    reload: true
+                });
             } else {
                 alert("保存失败");
             }
