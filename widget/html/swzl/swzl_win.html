@@ -23,10 +23,14 @@
             <ul class="aui-list aui-media-list" id="swzl_ul">
                 <script id="interationTemp" type="text/x-dot-template">
                 {{~it:swzl:index}}
-                    <li class="aui-list-item aui-list-item-middle">
+                    <li class="aui-list-item aui-list-item-middle" tapmode onclick="view('{{=swzl.id}}')">
                         <div class="aui-media-list-item-inner">
                             <div class="aui-list-item-media" style="width: 3rem;">
-                                <img src="{{= swzl.imgUrl }}" class="aui-img-round" >
+                                {{? swzl.imgUrl == ""}}
+                                    <img src="../../image/swzl.png" class="aui-img-round" >
+                                {{??}}
+                                    <img src="{{= swzl.imgUrl }}" class="aui-img-round" >
+                                {{?}}
                             </div>
                             <div class="aui-list-item-inner aui-list-item-arrow">
                                 <div class="aui-list-item-text">
@@ -54,17 +58,20 @@
 <script type="text/javascript">
     apiready = function() {
         initSwzlList();
-
     };
 
     function initSwzlList() {
-        fnSelectAll('SWZL', function(ret, err) {
+        var db = api.require('db');
+        db.selectSql({
+            name: DATABASE,
+            sql: 'SELECT *,(SELECT url FROM FILE F WHERE F.ID = S.ID AND F.imgId = "img_1") imgUrl FROM SWZL S'
+        }, function(ret, err) {
             if (ret.status && ret.data[0]) {
                 $api.dom('#swzl_ul').innerHTML = doTData(ret.data);
             } else {
-                
+                console.info(JSON.stringify(err));
             }
-        })
+        });
 
     }
 
@@ -73,6 +80,16 @@
           name: 'swzl_add_win',
           url: 'swzl_add_win.html'
       });
+    }
+
+    function view(id) {
+        api.openWin({
+            name: 'swzl_add_win',
+            url: 'swzl_add_win.html',
+            pageParam: {
+                id: id
+            }
+        });
     }
 
     function doTData(dataJson) {

@@ -41,26 +41,25 @@
          }
      });
 
-     //  失物招领表
      db.executeSql({
          name: DATABASE,
-         sql: 'CREATE OR REPLACE TABLE SWZL(id VARCHAR(50), dsdd VARCHAR(50), dsrq VARCHAR(20), xxms VARCHAR(300),' +
+         sql: 'CREATE TABLE SWZL(id VARCHAR(50), dsdd VARCHAR(50), dsrq VARCHAR(20), xxms VARCHAR(300),' +
              'lxr VARCHAR(20), lxfs VARCHAR(20))'
      });
 
      // 动态分享
      db.executeSql({
          name: DATABASE,
-         sql: 'CREATE OR REPLACE TABLE DTFX(id VARCHAR(50), fbnr VARCHAR(500), fxrq VARCHAR(20))'
+         sql: 'CREATE TABLE DTFX(id VARCHAR(50), fbnr VARCHAR(500), fxrq VARCHAR(20))'
      });
 
      // 附件
      db.executeSql({
          name: DATABASE,
-         sql: 'CREATE OR REPLACE TABLE FILE(id VARCHAR(50), r_id VARCHAR(50), url VARCHAR(20))'
+         sql: 'CREATE TABLE FILE(id VARCHAR(50), imgId VARCHAR(50), url VARCHAR(20))'
      });
 
-     callback();
+     setTimeout( callback, 4000);
  }
 
 function clearTable() {

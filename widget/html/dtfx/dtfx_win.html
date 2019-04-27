@@ -20,13 +20,17 @@
   </header>
   <div class="aui-card-list">
         <div class="aui-card-list-content">
-            <ul class="aui-list aui-media-list" id="swzl_ul">
+            <ul class="aui-list aui-media-list" id="dtfx_ul">
                 <script id="interationTemp" type="text/x-dot-template">
                 {{~it:dtfx:index}}
-                    <li class="aui-list-item aui-list-item-middle">
+                    <li class="aui-list-item aui-list-item-middle" tapmode onclick="view('{{=dtfx.id}}')">
                         <div class="aui-media-list-item-inner">
                             <div class="aui-list-item-media" style="width: 3rem;">
-                                <img src="{{= swzl.imgUrl }}" class="aui-img-round" >
+                            {{? dtfx.imgUrl == ""}}
+                                <img src="../../image/dtfx.png" class="aui-img-round" >
+                            {{??}}
+                                <img src="{{= dtfx.imgUrl }}" class="aui-img-round" >
+                            {{?}}
                             </div>
                             <div class="aui-list-item-inner aui-list-item-arrow">
                                 <div class="aui-list-item-text">
@@ -55,14 +59,17 @@
     };
 
     function initDtfxList() {
-        fnSelectAll('DTFX', function(ret, err) {
+        var db = api.require('db');
+        db.selectSql({
+            name: DATABASE,
+            sql: 'SELECT *,(SELECT url FROM FILE F WHERE F.ID = S.ID AND F.imgId = "img_1") imgUrl FROM DTFX S'
+        }, function(ret, err) {
             if (ret.status && ret.data[0]) {
-                $api.dom('#swzl_ul').innerHTML = doTData(ret.data);
+                $api.dom('#dtfx_ul').innerHTML = doTData(ret.data);
             } else {
-                console.info(err);
+                console.info(JSON.stringify(err));
             }
-        })
-
+        });
     }
 
     function addDtfx() {
@@ -70,6 +77,16 @@
           name: 'dtfx_add_win',
           url: 'dtfx_add_win.html'
       });
+    }
+
+    function view(id) {
+        api.openWin({
+            name: 'dtfx_add_win',
+            url: 'dtfx_add_win.html',
+            pageParam: {
+                id: id
+            }
+        });
     }
 
     function doTData(dataJson) {

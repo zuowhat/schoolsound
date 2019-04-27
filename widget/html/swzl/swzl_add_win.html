@@ -12,7 +12,7 @@
       <div class="aui-pull-left aui-btn" tapmode onclick="api.closeWin()">
           <span class="aui-iconfont aui-icon-left"></span>返回
       </div>
-      <div class="aui-title" id="headText">个人信息</div>
+      <div class="aui-title" id="headText">失物招领</div>
   </header>
 
   <ul class="aui-list aui-form-list">
@@ -73,21 +73,21 @@
               </div>
           </div>
       </li>
-      <li class="aui-list-item">
-          <div class="aui-list-item-inner">
-              <div class="aui-list-item-label">
-                  照片
-              </div>
-          </div>
-      </li>
-      <div class="aui-card-list-content-padded aui-border-b aui-border-t">
-        <div class="aui-row aui-row-padded">
+
+    <section class="aui-grid aui-margin-b-15">
+        <div class="aui-row">
             <div class="aui-col-xs-4">
-                <img src="../../image/upimg.png" onclick="addImg()"/>
+                <img src="../../image/upimg.png" id="img_1" style="width:80%" onclick="addImg(this)"/>
+            </div>
+            <div class="aui-col-xs-4">
+                <img src="../../image/upimg.png" id="img_2" style="display:none;width:80%" onclick="addImg(this)"/>
+            </div>
+            <div class="aui-col-xs-4">
+                <img src="../../image/upimg.png" id="img_3" style="display:none;width:80%" onclick="addImg(this)"/>
             </div>
         </div>
-      </div>
-      <li class="aui-list-item">
+    </section>
+      <li class="aui-list-item" id="sbumitLi">
           <div class="aui-list-item-inner aui-list-item-center aui-list-item-btn">
               <div class="aui-btn aui-btn-info aui-margin-r-5" onclick="sbumit()">发布</div>
           </div>
@@ -96,13 +96,50 @@
 </body>
 
 <script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
 <script type="text/javascript" src="../../script/jq-db.js"></script>
 <script type="text/javascript">
     apiready = function() {
-
+        var id = api.pageParam.id;
+        if (id && id !="") {
+            initSwzl(id);
+        }
     };
 
+    function initSwzl(id) {
+        var db = api.require('db');
+        db.selectSql({
+            name: DATABASE,
+            sql: 'SELECT *,(SELECT url FROM FILE F WHERE F.ID = S.ID AND F.imgId = "img_1") imgUrl_1, (SELECT url FROM FILE F WHERE F.ID = S.ID AND F.imgId = "img_2") imgUrl_2,(SELECT url FROM FILE F WHERE F.ID = S.ID AND F.imgId = "img_3") imgUrl_3 FROM SWZL S WHERE S.id="' + id + '"'
+        }, function(ret, err) {
+            if (ret.status && ret.data[0]) {
+                $api.css($api.byId('sbumitLi'), "display:none");
+                $api.css($api.byId('img_1'), "display:none");
+                $api.byId('dsdd').value = ret.data[0].dsdd;
+                $api.byId('dsrq').value = ret.data[0].dsrq;
+                $api.byId('xxms').value = ret.data[0].xxms;
+                $api.byId('lxr').value = ret.data[0].lxr;
+                $api.byId('lxfs').value = ret.data[0].lxfs;
+                if (ret.data[0].imgUrl_1 != "") {
+                    $api.byId('img_1').src = ret.data[0].imgUrl_1;
+                    $api.css($api.byId('img_1'), "display:block");
+                }
+                if (ret.data[0].imgUrl_2 != "") {
+                    $api.byId('img_2').src = ret.data[0].imgUrl_2;
+                    $api.css($api.byId('img_2'), "display:block");
+                }
+                if (ret.data[0].imgUrl_3 != "") {
+                    $api.byId('img_3').src = ret.data[0].imgUrl_3;
+                    $api.css($api.byId('img_3'), "display:block");
+                }
+            } else {
+                console.info(JSON.stringify(err));
+            }
+        });
+    }
+
     function sbumit() {
+        var id = getId();
         var dsdd = $api.byId('dsdd').value;
         var dsrq = $api.byId('dsrq').value;
         var xxms = $api.byId('xxms').value;
@@ -127,7 +164,8 @@
         var db = api.require('db');
         db.executeSql({
             name: DATABASE,
-            sql: 'INSERT INTO SWZL VALUES("'+ dsdd
+            sql: 'INSERT INTO SWZL VALUES("'+ id
+                 +'","'+ dsdd
                  +'","'+ dsrq
                  +'","'+ xxms
                  +'","'+ lxr
@@ -135,12 +173,71 @@
         }, function(ret, err) {
             if (ret.status == true) {
                 alert("保存成功");
-
+                saveImg(id, 'img_1');
+                saveImg(id, 'img_2');
+                saveImg(id, 'img_3');
                 api.closeWin();
             } else {
+                console.info(JSON.stringify(err));
                 alert("保存失败");
             }
         });
+    }
+
+
+    function saveImg(id, imgId) {
+        var url = $api.byId(imgId).src;
+        var db = api.require('db');
+        if (url && url != "file:///storage/emulated/0/UZMap/wgt/A6006259482771/widget/image/upimg.png") {
+            db.executeSql({
+                name: DATABASE,
+                sql: 'INSERT INTO FILE VALUES("'+ id
+                     +'","'+ imgId
+                     +'","'+ url + '")'
+            }, function(ret, err) {
+                console.info(JSON.stringify(err));
+            });
+        }
+    }
+
+    function addImg(obj) {
+        var imgObj = $api.byId(obj.id);
+        var nextId = 'img_' + (Number(obj.id.split("_")[1]) + 1);
+        var nextImgObj = $api.byId(nextId);
+        $api.css(nextImgObj, "display:block");
+        var q = 100;
+        //获取一张图片
+        api.getPicture({
+                sourceType : 'album',
+                mediaValue : 'pic',
+                //返回数据类型，指定返回图片地址或图片经过base64编码后的字符串
+                //base64:指定返回数据为base64编码后内容,url:指定返回数据为选取的图片地址
+                destinationType : 'url',
+                //是否可以选择图片后进行编辑，支持iOS及部分安卓手机
+                allowEdit : false,
+                //图片质量，只针对jpg格式图片（0-100整数）,默认值：50
+                quality : q,
+                // targetWidth : 100,
+                // targetHeight : 1280,
+                saveToPhotoAlbum : true
+            },
+            function(ret, err) {
+                if (ret) {
+                    //  data:"fs://",                //图片路径
+                    //  base64Data:"",          //base64数据，destinationType为base64时返回
+                    var img_url = ret.data;
+                    if (img_url) {
+                        imgObj.src = img_url;
+                    } else {
+                        imgObj.src = "../../image/upimg.png";
+                    }
+                }
+          });
+    }
+
+    function getId() {
+        var timestamp = (new Date()).getTime();
+        return 'swzl' + timestamp;
     }
 </script>
 

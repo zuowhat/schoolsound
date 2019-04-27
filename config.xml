@@ -13,8 +13,8 @@
         校声APP
 
     </author>
-    <!-- <content src="widget/welcome.html"/> -->
-    <content src="widget/html/swzl/swzl_win.html"/>
+    <content src="widget/welcome.html"/>
+    <!-- <content src="widget/html/swzl/swzl_win.html"/> -->
 
     <access origin="*"/>
 
