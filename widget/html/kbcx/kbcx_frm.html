@@ -1,0 +1,372 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <style type="text/css">
+        .jq-all {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .jq-header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .demo-line {
+            padding: 0 20px 0;
+            height: 1px;
+            line-height: 0.5px;
+            background: #ddd;
+            text-align: center;
+        }
+
+        .course_table {
+            width: 100%;
+            border-spacing: 0;
+        }
+
+        .course_table th {
+            height: 2.5em;
+            background: #f3f8f8;
+            color: #6d8498;
+            font-weight: 400;
+            font-size: 0.95em;
+        }
+
+        .course_table td {
+            font-size: 0.925em;
+            height: 3em;
+            border-bottom: 1px dashed #eee;
+            text-align: center;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+
+        .course_table tr td:first-child {
+            background: #f3f8f8;
+            color: #698196;
+            border-bottom: none;
+        }
+
+        .add {
+            background: #e1ebf2 center no-repeat;
+            background-size: 100% 100%;
+            height: 100%;
+            color: #999999;
+            line-height: 3em;
+            width: 3em;
+            margin: 0 auto;
+            font-size: 0.925em;
+            display: none;
+        }
+
+        .add span {
+            font-size: 1.25em;
+            color: #7993ab;
+        }
+
+        .add.on {
+            display: block;
+        }
+
+        .course_all {
+            padding-bottom: 0.5em;
+        }
+
+        .demo1 {
+            background: url("../../image/kcdz.png") no-repeat center;
+            background-size: 100% 100%;
+        }
+
+        .yuwen,
+        .shuxue,
+        .yingyu,
+        .wuli,
+        .huaxue,
+        .shengwu,
+        .lishi,
+        .zhengzhi,
+        .meishu,
+        .tiyu,
+        .dili,
+        .yinyue,
+        .dele {
+            font-size: 0.925em;
+            background: #adbeff;
+            color: #FFF;
+            width: 3em;
+            height: 100%;
+            padding: 3px 0;
+            box-sizing: border-box;
+            margin: 0 auto;
+            border-radius: 0.5em;
+            line-height: 2em;
+            background-url: none;
+        }
+
+        .shuxue {
+            background: #ff9e9f;
+        }
+
+        .lishi {
+            background: #ff9e9e;
+        }
+
+        .yingyu {
+            background: #ffdf62;
+        }
+
+        .zhengzhi {
+            background: #61e7f0;
+        }
+
+        .wuli {
+            background: #e4e275;
+        }
+
+        .meishu {
+            background: #fdc081;
+        }
+
+        .huaxue {
+            background: #c2b4f6;
+        }
+
+        .dili {
+            background: #62e48a;
+        }
+
+        .shengwu {
+            background: #ffc262;
+        }
+
+        .tiyu {
+            background: #c2ec5c;
+        }
+
+        .dele {
+            background: #FFF;
+            color: #666666;
+        }
+
+        .yinyue {
+            background: #c2ec5c;
+        }
+
+        .course_all div {
+            margin-right: 0.5em;
+        }
+
+        .course_all div:nth-child(7) {
+            margin-right: 0;
+        }
+
+        .add_kemu {
+            padding: 0.5em;
+            background: #ff9e9f;
+            color: #FFF;
+            border-radius: 0.25em;
+            font-size: 0.85em;
+            margin-left: 0.5em;
+        }
+
+        .course_all {
+            padding: 0.75em 0.5em 0em 0.5em;
+        }
+
+        .course_all div {
+            width: 3em;
+            height: 3em;
+            text-align: center;
+            display: inline-block;
+            margin-bottom: 0.5em;
+        }
+    </style>
+</head>
+
+<body>
+    <table class="course_table">
+        <tbody id="course_html">
+            <tr>
+                <th width="30"></th>
+                <th>周一</th>
+                <th>周二</th>
+                <th>周三</th>
+                <th>周四</th>
+                <th>周五</th>
+                <th>周六</th>
+                <th>周日</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td id="1_1" onclick="add_course(1,1)" class="demo1"></td>
+                <td id="2_1" onclick="add_course(2,1)" class="demo1"></td>
+                <td id="3_1" onclick="add_course(3,1)" class="demo1"></td>
+                <td id="4_1" onclick="add_course(4,1)" class="demo1"></td>
+                <td id="5_1" onclick="add_course(5,1)" class="demo1"></td>
+                <td id="6_1" onclick="add_course(6,1)" class="demo1"></td>
+                <td id="7_1" onclick="add_course(7,1)" class="demo1"></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td id="1_2" onclick="add_course(1,2)" class="demo1"></td>
+                <td id="2_2" onclick="add_course(2,2)" class="demo1"></td>
+                <td id="3_2" onclick="add_course(3,2)" class="demo1"></td>
+                <td id="4_2" onclick="add_course(4,2)" class="demo1"></td>
+                <td id="5_2" onclick="add_course(5,2)" class="demo1"></td>
+                <td id="6_2" onclick="add_course(6,2)" class="demo1"></td>
+                <td id="7_2" onclick="add_course(7,2)" class="demo1"></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td id="1_3" onclick="add_course(1,3)" class="demo1"></td>
+                <td id="2_3" onclick="add_course(2,3)" class="demo1"></td>
+                <td id="3_3" onclick="add_course(3,3)" class="demo1"></td>
+                <td id="4_3" onclick="add_course(4,3)" class="demo1"></td>
+                <td id="5_3" onclick="add_course(5,3)" class="demo1"></td>
+                <td id="6_3" onclick="add_course(6,3)" class="demo1"></td>
+                <td id="7_3" onclick="add_course(7,3)" class="demo1"></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td id="1_4" onclick="add_course(1,4)" class="demo1"></td>
+                <td id="2_4" onclick="add_course(2,4)" class="demo1"></td>
+                <td id="3_4" onclick="add_course(3,4)" class="demo1"></td>
+                <td id="4_4" onclick="add_course(4,4)" class="demo1"></td>
+                <td id="5_4" onclick="add_course(5,4)" class="demo1"></td>
+                <td id="6_4" onclick="add_course(6,4)" class="demo1"></td>
+                <td id="7_4" onclick="add_course(7,4)" class="demo1"></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td id="1_5" onclick="add_course(1,5)" class="demo1"></td>
+                <td id="2_5" onclick="add_course(2,5)" class="demo1"></td>
+                <td id="3_5" onclick="add_course(3,5)" class="demo1"></td>
+                <td id="4_5" onclick="add_course(4,5)" class="demo1"></td>
+                <td id="5_5" onclick="add_course(5,5)" class="demo1"></td>
+                <td id="6_5" onclick="add_course(6,5)" class="demo1"></td>
+                <td id="7_5" onclick="add_course(7,5)" class="demo1"></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td id="1_6" onclick="add_course(1,6)" class="demo1"></td>
+                <td id="2_6" onclick="add_course(2,6)" class="demo1"></td>
+                <td id="3_6" onclick="add_course(3,6)" class="demo1"></td>
+                <td id="4_6" onclick="add_course(4,6)" class="demo1"></td>
+                <td id="5_6" onclick="add_course(5,6)" class="demo1"></td>
+                <td id="6_6" onclick="add_course(6,6)" class="demo1"></td>
+                <td id="7_6" onclick="add_course(7,6)" class="demo1"></td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td id="1_7" onclick="add_course(1,7)" class="demo1"></td>
+                <td id="2_7" onclick="add_course(2,7)" class="demo1"></td>
+                <td id="3_7" onclick="add_course(3,7)" class="demo1"></td>
+                <td id="4_7" onclick="add_course(4,7)" class="demo1"></td>
+                <td id="5_7" onclick="add_course(5,7)" class="demo1"></td>
+                <td id="6_7" onclick="add_course(6,7)" class="demo1"></td>
+                <td id="7_7" onclick="add_course(7,7)" class="demo1"></td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td id="1_8" onclick="add_course(1,8)" class="demo1"></td>
+                <td id="2_8" onclick="add_course(2,8)" class="demo1"></td>
+                <td id="3_8" onclick="add_course(3,8)" class="demo1"></td>
+                <td id="4_8" onclick="add_course(4,8)" class="demo1"></td>
+                <td id="5_8" onclick="add_course(5,8)" class="demo1"></td>
+                <td id="6_8" onclick="add_course(6,8)" class="demo1"></td>
+                <td id="7_8" onclick="add_course(7,8)" class="demo1"></td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td id="1_9" onclick="add_course(1,9)" class="demo1"></td>
+                <td id="2_9" onclick="add_course(2,9)" class="demo1"></td>
+                <td id="3_9" onclick="add_course(3,9)" class="demo1"></td>
+                <td id="4_9" onclick="add_course(4,9)" class="demo1"></td>
+                <td id="5_9" onclick="add_course(5,9)" class="demo1"></td>
+                <td id="6_9" onclick="add_course(6,9)" class="demo1"></td>
+                <td id="7_9" onclick="add_course(7,9)" class="demo1"></td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td id="1_10" onclick="add_course(1,10)" class="demo1"></td>
+                <td id="2_10" onclick="add_course(2,10)" class="demo1"></td>
+                <td id="3_10" onclick="add_course(3,10)" class="demo1"></td>
+                <td id="4_10" onclick="add_course(4,10)" class="demo1"></td>
+                <td id="5_10" onclick="add_course(5,10)" class="demo1"></td>
+                <td id="6_10" onclick="add_course(6,10)" class="demo1"></td>
+                <td id="7_10" onclick="add_course(7,10)" class="demo1"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="display: none">
+        <!-- <div class="yuwen" id="kc1">软件编译技术</div>
+                <div class="shuxue" id="kc2">数学建模</div>
+                <div class="yingyu" id="kc3">信息与网络安全</div> -->
+        <div class="yuwen" id="kc1">软件.</div>
+        <div class="shuxue" id="kc2">数学.</div>
+        <div class="yingyu" id="kc3">信息.</div>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../script/aui-dialog0.js"></script>
+<script type="text/javascript">
+    var dialog = new auiDialog({})
+    apiready = function() {
+
+    }
+
+    //下拉框箭头模拟下拉框点击事件
+    function changeKCicon() {
+        var event;
+        event = document.createEvent('MouseEvents');
+        event.initMouseEvent('mousedown', true, true, window);
+        document.getElementById("kcinfo").dispatchEvent(event);
+
+    }
+
+    //课程下拉框
+    function changeKC(obj) {
+        if (obj.value == '1') {
+            $api.html($api.byId('jiaoshi'), "教室：35-203");
+            $api.html($api.byId('laoshi'), "老师：吴晓琴");
+        } else if (obj.value == '2') {
+            $api.html($api.byId('jiaoshi'), "教室：35-212");
+            $api.html($api.byId('laoshi'), "老师：林传文");
+        } else if (obj.value == '3') {
+            $api.html($api.byId('jiaoshi'), "教室：36-201");
+            $api.html($api.byId('laoshi'), "老师：汪彩梅");
+        }
+    }
+
+    var week = '';
+    var num = '';
+    //添加课程
+    function add_course(i, n) {
+        week = i;
+        num = n;
+        dialog.prompt({
+            title: "课程信息",
+            text: $("#" + week + "_" + num).html(),
+            buttons: ['取消', '添加'],
+            week: week,
+            num: num
+        }, function(ret) {
+            if (ret.buttonIndex == 2) {
+                //添加课程
+                $("#" + week + "_" + num).removeClass('demo1');
+                var html = $("#kc" + $('#kcinfo option:selected').val()).clone();
+                $("#" + week + "_" + num).html(html);
+            }
+        })
+    }
+
+</script>
+
+</html>

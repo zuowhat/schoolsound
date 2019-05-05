@@ -29,8 +29,8 @@
                 </div>
             </form>
 
-            <div class="submit" onclick="loginBtn()" tapmode>登录</div>
-            <div class="submit" onclick="signIn()" tapmode>注册</div>
+            <div class="submit" onclick="loginBtn1()" tapmode>登录</div>
+            <!-- <div class="submit" onclick="signIn()" tapmode>注册</div> -->
         </section>
 
     </div>
@@ -62,6 +62,24 @@
         });
 
     };
+
+    function loginBtn1() {
+        var userName = $api.byId('userName').value;
+        var userPwd = $api.byId('userPwd').value;
+        if (userName == "" || userPwd == "") {
+            alert("请输入账户和密码");
+            return;
+        }
+        api.openWin({
+            name: 'main',
+            url: 'index_win.html',
+            allowEdit: true,
+            bounces: false,
+            vScrollBarEnabled: false,
+            hScrollBarEnabled: false,
+            slidBackEnabled: false
+        });
+    }
 
     /**
      * @author: xqq
