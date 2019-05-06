@@ -59,6 +59,18 @@
          sql: 'CREATE TABLE FILE(id VARCHAR(50), imgId VARCHAR(50), url VARCHAR(20))'
      });
 
+     // 表白
+     db.executeSql({
+         name: DATABASE,
+         sql: 'CREATE TABLE BBQ(id VARCHAR(50), bbnr VARCHAR(500), bbrq VARCHAR(20), ax INTEGER, dz INTEGER)'
+     });
+
+     // 表白评论
+     db.executeSql({
+         name: DATABASE,
+         sql: 'CREATE TABLE BBPL(bbId VARCHAR(50), plnr VARCHAR(500), plr VARCHAR(20), plrq VARCHAR(20), sort INTEGER)'
+     });
+
      setTimeout( callback, 4000);
  }
 

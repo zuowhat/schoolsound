@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+</head>
+
+<body>
+    <header class="aui-bar aui-bar-nav">
+        <div class="aui-pull-left aui-btn" tapmode onclick="api.closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>返回
+        </div>
+        <div class="aui-title" id="headText">表白墙</div>
+    </header>
+    <ul class="aui-list aui-form-list">
+        <div style="text-align:center"> 表白内容</div>
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-input">
+                    <textarea placeholder="在这里输入内容..." id="fbnr" style="height: 300px"></textarea>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner aui-list-item-center aui-list-item-btn">
+                <div class="aui-btn aui-btn-info aui-margin-r-5" id="sumbitText" tapmode onclick="submit()">表白</div>
+            </div>
+        </li>
+    </ul>
+</body>
+
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/jq-db.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+
+    };
+
+    function submit() {
+        var id = getId();
+        var bbnr = $api.byId('fbnr').value;
+        var bbrq = getDate();
+        if (bbnr == "") {
+            alert("内容发布不能为空");
+            return;
+        }
+        var db = api.require('db');
+        db.executeSql({
+            name: DATABASE,
+            sql: 'INSERT INTO BBQ VALUES("'+ id
+                 +'","'+ bbnr
+                 +'","'+ bbrq + '",0,0)'
+        }, function(ret, err) {
+            if (ret.status == true) {
+                alert("保存成功");
+                api.openWin({
+                    name: 'bbq_win',
+                    url: 'bbq_win.html',
+                    reload: true
+                });
+            } else {
+                alert("保存失败");
+            }
+        });
+    }
+
+    function getId() {
+        var timestamp = (new Date()).getTime();
+        return 'bbq' + timestamp;
+    }
+
+    function getDate() {
+        var now = new Date();
+        return now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate();
+    }
+</script>
+
+</html>
