@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <header class="aui-bar aui-bar-nav">
+    <header class="aui-bar aui-bar-nav" id="aui-header">
         <div class="aui-pull-left aui-btn" tapmode onclick="api.closeWin()">
             <span class="aui-iconfont aui-icon-left"></span>返回
         </div>
@@ -36,7 +36,8 @@
 <script type="text/javascript" src="../../script/jq-db.js"></script>
 <script type="text/javascript">
     apiready = function() {
-
+        var header = $api.byId('aui-header');
+        $api.fixStatusBar(header);
     };
 
     function submit() {
@@ -44,7 +45,11 @@
         var bbnr = $api.byId('fbnr').value;
         var bbrq = getDate();
         if (bbnr == "") {
-            alert("内容发布不能为空");
+            api.toast({
+                msg: '内容发布不能为空',
+                duration: 2000,
+                location: 'middle'
+            });
             return;
         }
         var db = api.require('db');
@@ -55,14 +60,22 @@
                  +'","'+ bbrq + '",0,0)'
         }, function(ret, err) {
             if (ret.status == true) {
-                alert("保存成功");
+                api.toast({
+                    msg: '保存成功',
+                    duration: 2000,
+                    location: 'middle'
+                });
                 api.openWin({
                     name: 'bbq_win',
                     url: 'bbq_win.html',
                     reload: true
                 });
             } else {
-                alert("保存失败");
+                api.toast({
+                    msg: '保存失败',
+                    duration: 2000,
+                    location: 'middle'
+                });
             }
         });
     }

@@ -6,9 +6,12 @@
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
 </head>
+<style media="screen">
+    .red{color: red}
+</style>
 
 <body>
-    <header class="aui-bar aui-bar-nav">
+    <header class="aui-bar aui-bar-nav"  id="aui-header">
         <div class="aui-pull-left aui-btn" tapmode onclick="api.closeWin()">
             <span class="aui-iconfont aui-icon-left"></span>返回
         </div>
@@ -18,25 +21,40 @@
     <div class="aui-card-list aui-padded-10">
         <div class="aui-list-item-inner aui-border">
             <div class="aui-list-item-input">
-                <textarea placeholder="在这里输入内容..." id="fbnr" style="height:200px"></textarea>
+                <textarea placeholder="在这里输入内容..." id="bbnr" style="height:200px" readonly="readonly"></textarea>
             </div>
         </div>
 
         <div class="aui-card-list-footer aui-border">
-            <div><i class="aui-iconfont aui-icon-note"></i> 666</div>
-            <div><i class="aui-iconfont aui-icon-laud"></i> 888</div>
-            <div><i class="aui-iconfont aui-icon-star"></i> 888</div>
+            <div onclick="change('axs')"><i class="aui-iconfont aui-icon-star" id="axsi"></i><span id="axs">9</span></div>
+            <div onclick="change('dzs')"><i class="aui-iconfont aui-icon-laud" id="dzsi"></i><span id="dzs">8</span></div>
+            <div></div><div></div>
+            <div></div><div></div>
+            <div></div><div></div>
+            <div id="bbrq">2019-5-8</div>
         </div>
     </div>
 
     <div class="aui-card-list aui-padded-10">
         <div class="aui-card-list-content aui-border">
-            <ul class="aui-list aui-media-list">
+            <ul class="aui-list aui-media-list" id="pllist">
                 <li class="aui-list-item aui-list-item-middle">
                     <div class="aui-media-list-item-inner">
                         <div class="aui-list-item-inner">
                             <div class="aui-list-item-text">
-                                <span class="aui-iconfont aui-icon-qq"> 1楼 张三 2019-05-0602</span>
+                                <span class="aui-iconfont aui-icon-qq"> 1楼 张三 2019-4-11</span>
+                            </div>
+                            <div class="aui-list-item-text">
+                                加油
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="aui-list-item aui-list-item-middle">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-text">
+                                <span class="aui-iconfont aui-icon-qq"> 2楼 李四 2019-5-1</span>
                             </div>
                             <div class="aui-list-item-text">
                                 加油
@@ -49,23 +67,97 @@
     </div>
 
     <footer class="aui-bar aui-bar-tab">
-            <div class="aui-bar-tab-item aui-padded-l-15 aui-padded-r-15" tapmode style="width: auto;">
-                <div class="search-input aui-font-size-14">请输入评论内容</div>
-            </div>
-            <div class="aui-bar-tab-item" tapmode style="width: 2.2rem;">
-                <i class="aui-iconfont aui-icon-share"></i>
-            </div>
-        </footer>
+        <div class="aui-bar-tab-item aui-padded-l-15 aui-padded-r-15" tapmode style="width: auto;">
+            <input type="text" placeholder="请输入评论内容" value="" id="plnr" required>
+        </div>
+        <div class="aui-bar-tab-item" tapmode style="width: 2.2rem;" onclick="addPl()">
+            <i class="aui-iconfont aui-icon-share"></i>
+        </div>
+    </footer>
 </body>
 
 <script type="text/javascript" src="../../script/api.js"></script>
 <script type="text/javascript" src="../../script/doT.min.js"></script>
 <script type="text/javascript" src="../../script/jq-db.js"></script>
 <script type="text/javascript">
+    var i = 3;
     apiready = function() {
-
+        var header = $api.byId('aui-header');
+        $api.fixStatusBar(header);
+        var id = api.pageParam.id;
+        initBbq(id);
+        // initBbpl(id);
     };
 
+    function initBbq(id) {
+        var db = api.require('db');
+        db.selectSql({
+            name: DATABASE,
+            sql: 'SELECT * FROM bbq WHERE id="' + id + '"'
+        }, function(ret, err) {
+            if (ret.status && ret.data[0]) {
+                document.getElementById('bbnr').value = ret.data[0].bbnr;
+                document.getElementById('bbrq').innerHTML = ret.data[0].bbrq;
+            } else {
+                console.info(JSON.stringify(err));
+            }
+        });
+    }
+
+    function initBbpl(id) {
+        var db = api.require('db');
+        db.selectSql({
+            name: DATABASE,
+            sql: 'SELECT * FROM BBPL WHERE bbId="' + id + '"'
+        }, function(ret, err) {
+            if (ret.status && ret.data[0]) {
+                $api.dom('#pllist').innerHTML = doTData(ret.data);
+            } else {
+                console.info(JSON.stringify(err));
+            }
+        });
+    }
+
+    function doTData(dataJson) {
+        var interation = doT.template($api.dom('#interationTemp').innerHTML);
+        return interation(dataJson);
+    }
+
+    function change(id) {
+        var iobj = $api.byId(id + 'i');
+        if (!$api.hasCls(iobj, 'red')) {
+            $api.byId(id).innerHTML = Number($api.byId(id).innerHTML) + 1;
+            $api.addCls(iobj, 'red');
+        }
+    }
+
+    function getDate() {
+        var now = new Date();
+        return now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate();
+    }
+
+    function addPl() {
+        var plnr = $api.byId('plnr').value;
+        if (plnr == "") {
+            api.toast({
+                msg: '评论内容不能为空',
+                duration: 2000,
+                location: 'middle'
+            });
+            return;
+        }
+        var ul= $api.byId('pllist');
+        var li= document.createElement("li");
+        li.className = "aui-list-item aui-list-item-middle";
+        var html = "<div class='aui-media-list-item-inner'><div class='aui-list-item-inner'><div class='aui-list-item-text'>"
+                    + "<span class='aui-iconfont aui-icon-qq'> " + i + "楼 匿名 " + getDate()
+                    + "</span></div><div class='aui-list-item-text'>"
+                    + $api.byId('plnr').value + "</div></div></div>";
+        li.innerHTML=html;
+        ul.appendChild(li);
+        i++;
+        $api.byId('plnr').value = "";
+    }
 </script>
 
 </html>

@@ -8,7 +8,7 @@
 </head>
 
 <body>
-  <header class="aui-bar aui-bar-nav">
+  <header class="aui-bar aui-bar-nav"  id="aui-header">
       <div class="aui-pull-left aui-btn" tapmode onclick="api.closeWin()">
           <span class="aui-iconfont aui-icon-left"></span>返回
       </div>
@@ -54,6 +54,8 @@
 <script type="text/javascript" src="../../script/jq-db.js"></script>
 <script type="text/javascript">
     apiready = function() {
+        var header = $api.byId('aui-header');
+        $api.fixStatusBar(header);
         initDtfxList();
 
     };

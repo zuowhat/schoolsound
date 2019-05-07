@@ -24,7 +24,7 @@
 </head>
 
 <body>
-    <header class="aui-bar aui-bar-nav">
+    <header class="aui-bar aui-bar-nav"  id="aui-header">
         <div class="aui-pull-left aui-btn" tapmode onclick="api.closeWin()">
             <span class="aui-iconfont aui-icon-left"></span>返回
         </div>
@@ -145,6 +145,8 @@
 <script type="text/javascript" src="../../script/jq-db.js"></script>
 <script type="text/javascript">
     apiready = function() {
+        var header = $api.byId('aui-header');
+        $api.fixStatusBar(header);
         var userName = $api.getStorage('userName');
         if (userName && userName != "") {
             fnSelectDataById('USERS', userName, function(ret, err) {
@@ -182,15 +184,27 @@
             var BJ = $api.byId('BJ').value;
 
             if (ID == "") {
-                alert("用户名不能为空");
+                api.toast({
+                    msg: '用户名不能为空',
+                    duration: 2000,
+                    location: 'middle'
+                });
                 return;
             }
             if (PASSWORD == "") {
-                alert("密码不能为空");
+                api.toast({
+                    msg: '密码不能为空',
+                    duration: 2000,
+                    location: 'middle'
+                });
                 return;
             }
             if (NAME == "") {
-                alert("姓名不能为空");
+                api.toast({
+                    msg: '姓名不能为空',
+                    duration: 2000,
+                    location: 'middle'
+                });
                 return;
             }
             var db = api.require('db');
@@ -207,10 +221,18 @@
                     '","' + JG + '")'
             }, function(ret, err) {
                 if (ret.status == true) {
-                    alert("注册成功");
+                    api.toast({
+                        msg: '注册成功',
+                        duration: 2000,
+                        location: 'middle'
+                    });
                     api.closeWin();
                 } else {
-                    alert("注册失败,当前账户已被注册");
+                    api.toast({
+                        msg: '注册失败,当前账户已被注册',
+                        duration: 2000,
+                        location: 'middle'
+                    });
                 }
             });
         }

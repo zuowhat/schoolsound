@@ -41,7 +41,7 @@
     }
 </style>
 <body>
-  <header class="aui-bar aui-bar-nav">
+  <header class="aui-bar aui-bar-nav"  id="aui-header">
       <div class="aui-pull-left aui-btn" tapmode onclick="api.closeWin()">
           <span class="aui-iconfont aui-icon-left"></span>返回
       </div>
@@ -67,6 +67,8 @@
 <script>
     var oDiv = document.getElementById('div1');
     apiready = function() {
+        var header = $api.byId('aui-header');
+        $api.fixStatusBar(header);
         initBbqList();
     };
 
@@ -113,7 +115,7 @@
             name: 'bbq_view_win',
             url: 'bbq_view_win.html',
             pageParam: {
-                id: 'id'
+                id: id
             }
         });
     }
@@ -121,7 +123,8 @@
     function addBb() {
         api.openWin({
             name: 'bbq_add_win',
-            url: 'bbq_add_win.html'
+            url: 'bbq_add_win.html',
+            reload: true
         });
     }
 
