@@ -12,25 +12,25 @@
 
 <body>
     <div class="container">
-        <div class="background-image" style="margin-left:35px;"></div>
+        <div class="background-image"></div>
         <div class="title">校声</div>
         <section class="form">
             <form action="#">
                 <div class="user_name_psword">
                     <span class="name"></span>
-                    <input type="text" placeholder="请输入您账号" id="userName">
+                    <input type="text" placeholder="请输入用户名" id="userName">
                     <!-- <span class="delete" onclick="emptyInputContent('userName')"></span> -->
                 </div>
                 <div class="user_name_psword">
                     <span class="psword"></span>
-                    <input type="password" placeholder="请输入您密码" id="userPwd">
+                    <input type="password" placeholder="请输入密码" id="userPwd">
                     <span class="pwd_hide" onclick="pwdShowOrHide()" id="pwdeye"></span>
                     <!-- <span class="delete" onclick="emptyInputContent('userPwd')"></span> -->
                 </div>
             </form>
 
-            <div class="submit" onclick="loginBtn1()" tapmode>登录</div>
-            <!-- <div class="submit" onclick="signIn()" tapmode>注册</div> -->
+            <div class="submit" onclick="loginBtn()" tapmode>登录</div>
+            <div class="submit" onclick="signIn()" tapmode>注册</div>
         </section>
 
     </div>

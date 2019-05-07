@@ -1,4 +1,5 @@
 .container .background-image{
+    margin:0 auto;
     width: 315px;
     height:260px;
     background: url("../image/logo.jpg") no-repeat center;

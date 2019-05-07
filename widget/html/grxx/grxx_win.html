@@ -5,6 +5,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+
+    <style>
+        .submit {
+            width: 100%;
+            height: 45px;
+            line-height: 45px;
+            text-align: center;
+            margin-top: 25px;
+            background-color: #067eee;
+            color: #fff;
+            font-size: 22px;
+            border-radius: 4px;
+            letter-spacing: 4px;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -19,10 +35,10 @@
         <li class="aui-list-item">
             <div class="aui-list-item-inner">
                 <div class="aui-list-item-label">
-                    账户
+                    用户名
                 </div>
                 <div class="aui-list-item-input">
-                    <input type="text" placeholder="账户" value="" id="ID" required>
+                    <input type="text" placeholder="用户名" value="" id="ID" required>
                 </div>
             </div>
         </li>
@@ -62,7 +78,7 @@
                     籍贯
                 </div>
                 <div class="aui-list-item-input">
-                    <input type="text" placeholder="籍贯" value=""  id="JG">
+                    <input type="text" placeholder="籍贯" value="" id="JG">
                 </div>
             </div>
         </li>
@@ -112,14 +128,14 @@
                     一卡通余额
                 </div>
                 <div class="aui-list-item-input">
-                    <input type="number" value="" disabled=""  id="YKT">
+                    <input type="number" value="" disabled="" id="YKT">
                 </div>
             </div>
         </li>
 
         <li class="aui-list-item">
             <div class="aui-list-item-inner aui-list-item-center aui-list-item-btn">
-                <div class="aui-btn aui-btn-info aui-margin-r-5" id="sumbitText" tapmode onclick="submit()">确定</div>
+                <div class="submit" id="sumbitText" tapmode onclick="submit()">确定</div>
             </div>
         </li>
     </ul>
@@ -166,7 +182,7 @@
             var BJ = $api.byId('BJ').value;
 
             if (ID == "") {
-                alert("账户不能为空");
+                alert("用户名不能为空");
                 return;
             }
             if (PASSWORD == "") {
@@ -180,15 +196,15 @@
             var db = api.require('db');
             db.executeSql({
                 name: DATABASE,
-                sql: 'INSERT INTO USERS VALUES("'+ ID
-                     +'","'+ PASSWORD
-                     +'","'+ NAME
-                     +'","'+ PHONENUM
-                     +'","'+ SEX
-                     +'","'+ YX
-                     +'","'+ BJ
-                     +'","'+ ZY
-                     +'","'+ JG + '")'
+                sql: 'INSERT INTO USERS VALUES("' + ID +
+                    '","' + PASSWORD +
+                    '","' + NAME +
+                    '","' + PHONENUM +
+                    '","' + SEX +
+                    '","' + YX +
+                    '","' + BJ +
+                    '","' + ZY +
+                    '","' + JG + '")'
             }, function(ret, err) {
                 if (ret.status == true) {
                     alert("注册成功");
@@ -199,7 +215,6 @@
             });
         }
     }
-
 </script>
 
 </html>
