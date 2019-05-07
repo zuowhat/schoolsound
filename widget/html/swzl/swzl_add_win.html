@@ -5,6 +5,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <style>
+        .submit {
+            width: 100%;
+            height: 45px;
+            line-height: 45px;
+            text-align: center;
+            margin-top: 25px;
+            background-color: #067eee;
+            color: #fff;
+            font-size: 22px;
+            border-radius: 4px;
+            letter-spacing: 4px;
+        }
+    </style>
 </head>
 
 <body>
@@ -75,23 +89,24 @@
       </li>
 
     <section class="aui-grid aui-margin-b-15">
-        <div class="aui-row">
+        <div class="aui-row" style="padding-left:15px;">
             <div class="aui-col-xs-4">
-                <img src="../../image/upimg.png" id="img_1" style="width:80%" onclick="addImg(this)"/>
+                <img src="../../image/upimg1.png" id="img_1" style="width:80%" onclick="addImg(this)"/>
             </div>
             <div class="aui-col-xs-4">
-                <img src="../../image/upimg.png" id="img_2" style="display:none;width:80%" onclick="addImg(this)"/>
+                <img src="../../image/upimg1.png" id="img_2" style="display:none;width:80%" onclick="addImg(this)"/>
             </div>
             <div class="aui-col-xs-4">
-                <img src="../../image/upimg.png" id="img_3" style="display:none;width:80%" onclick="addImg(this)"/>
+                <img src="../../image/upimg1.png" id="img_3" style="display:none;width:80%" onclick="addImg(this)"/>
             </div>
         </div>
     </section>
-
+      <li class="aui-list-item" id="sbumitLi">
+          <div class="aui-list-item-inner aui-list-item-center aui-list-item-btn">
+              <div class="submit" onclick="sbumit()">发布</div>
+          </div>
+      </li>
   </ul>
-  <footer class="aui-bar aui-bar-tab">
-          <div class="aui-bar-tab-item aui-bg-info aui-text-white" tapmode style="width: auto;" onclick="submit()">发布</div>
-      </footer>
 </body>
 
 <script type="text/javascript" src="../../script/api.js"></script>

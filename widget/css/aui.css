@@ -452,6 +452,8 @@ img {
 	opacity: 0;
 }
 img.aui-img-round {
+	width: 80px;
+  height: 50px;
 	border-radius: 50%;
 }
 /*基本容器*/

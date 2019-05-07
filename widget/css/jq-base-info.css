@@ -1,0 +1,141 @@
+body{
+    background-color: #f6f8fc;
+    font-size:15px;
+    color:#666666;
+}
+.aui-tab-item.aui-active {
+    color: #067eee;
+    border-bottom: 2px solid #067eee;
+}
+.aui-tab{
+    border-bottom: 2px solid #e1e1e1;
+}
+.aui-tab-item{
+    font-size:15px;
+}
+.type{
+    height:40px;
+    line-height:40px;
+    padding-left:10px;
+    color:#333333;
+}
+.material-box{
+    background-color: #fff;
+}
+.provide-box{
+    margin-top:10px;
+}
+.material-box .back-box{
+    padding-left:30px;
+    position: relative;
+    height:38px;
+    line-height: 38px;
+    font-size:16px;
+    border-bottom: 1px solid #e1e1e1;
+}
+.provide-box .back-box{
+    border-bottom: 1px solid transparent;
+}
+.material-box .back-box span:first-child{
+    position: absolute;
+    left:15px;
+    top:9px;
+    width:4px;
+    height:20px;
+    border-radius: 2px;
+    background-color: #067eee;
+}
+.material{
+    width:100%;
+    /*height:160px;*/
+    padding-top:20px;
+    margin-bottom:10px;
+}
+.material > div{
+    width:33.3%;
+    height:100%;
+    float:left;
+}
+.material > div .material-image{
+    position: relative;
+    width:85px;
+    height:85px;
+    margin:0 auto;
+    background: url(../image/pull_back_image.png) no-repeat center;
+    background-size: 100% 100%;
+}
+.material > div .material-image-have{
+    position: relative;
+    width:85px;
+    height:85px;
+    margin:0 auto;
+    background: url(../image/pull_back_image-have.png) no-repeat center;
+    background-size: 100% 100%;
+}
+.material > div .material-instruc{
+    text-align: center;
+    height:40px;
+    line-height:40px;
+}
+.delete-img{
+    position: absolute;
+    width:18px;
+    height:18px;
+    top:-6px;
+    right:-6px;
+    background: url(../image/del1.png) no-repeat center;
+    background-size: 100% 100%;
+}
+.delete-png{
+    position: absolute;
+    width:18px;
+    height:18px;
+    top:-6px;
+    right:-6px;
+    background: url(../image/delete.png) no-repeat center;
+    background-size: 100% 100%;
+}
+/*.preview{
+    background: url(../image/preview.png) no-repeat center;
+    background-size: 100% 100%;
+}*/
+.material-box .back-box span.preview{
+    position: absolute;
+    top: 12px;
+    right: 50px;
+    width: 20px;
+    height: 16px;
+}
+.material-box .back-box span:last-child{
+    position: absolute;
+    right: 10px;
+    color:#999999;
+}
+.material-image img{
+    width:65px;
+    height:45px;
+    position: relative;
+    top:20px;
+    left:10px;
+}
+.material-instruc span{
+    display: block;
+    color:#999999;
+    font-size:12px;
+    text-align: center;
+    line-height: 20px;
+}
+.material > div .material-push-date{
+    height:60px;
+}
+.material-box .back-box i.start{
+   color:#fd5d5d;
+    padding-right:5px;
+}
+.material-image img.id-image{
+    width:69px;
+    height:69px;
+    position: relative;
+    top:8px;
+    left:8px;
+}

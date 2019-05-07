@@ -5,6 +5,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <link rel="stylesheet" type="text/css" href="../../css/aui.css" />
+    <style>
+     .icon1 {
+        background: url("../../image/dw.png") no-repeat;
+        background-size: 14px 14px;
+        position: absolute;
+        left: 0;
+        width: 14px;
+        height: 14px;
+    }
+    .icon2 {
+       background: url("../../image/date1.png") no-repeat;
+       background-size: 14px 14px;
+      position: absolute;
+       left: 0;
+       width: 14px;
+       height: 14px;
+   }
+    </style>
 </head>
 
 <body>
@@ -26,7 +44,7 @@
                 {{~it:swzl:index}}
                     <li class="aui-list-item aui-list-item-middle" tapmode onclick="view('{{=swzl.id}}')">
                         <div class="aui-media-list-item-inner">
-                            <div class="aui-list-item-media" style="width: 3rem;">
+                            <div class="aui-list-item-media" style="width: 60px;">
                                 {{? swzl.imgUrl == ""}}
                                     <img src="../../image/swzl.png" class="aui-img-round" >
                                 {{??}}
@@ -38,10 +56,10 @@
                                     <div class="aui-list-item-title aui-font-size-14">{{= swzl.xxms }}</div>
                                 </div>
                                 <div class="aui-list-item-text">
-                                    {{= swzl.dsdd }}
+                                    <span class="icon1"></span><span style="padding-left:20px;padding-top:2px;">{{= swzl.dsdd }}</span>
                                 </div>
                                 <div class="aui-list-item-text">
-                                    {{= swzl.dsrq }}
+                                    <span class="icon2"></span><span style="padding-left:20px;padding-top:2px;">{{= swzl.dsrq }}</span>
                                 </div>
                             </div>
                         </div>
