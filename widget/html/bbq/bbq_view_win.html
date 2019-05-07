@@ -26,7 +26,7 @@
         </div>
 
         <div class="aui-card-list-footer aui-border">
-            <div onclick="change('axs')"><i class="aui-iconfont aui-icon-star" id="axsi"></i><span id="axs">9</span></div>
+            <div onclick="change('axs')"><i class="aui-iconfont aui-icon-like" id="axsi"></i><span id="axs">9</span></div>
             <div onclick="change('dzs')"><i class="aui-iconfont aui-icon-laud" id="dzsi"></i><span id="dzs">8</span></div>
             <div></div><div></div>
             <div></div><div></div>
@@ -42,7 +42,7 @@
                     <div class="aui-media-list-item-inner">
                         <div class="aui-list-item-inner">
                             <div class="aui-list-item-text">
-                                <span class="aui-iconfont aui-icon-qq"> 1楼 张三 2019-4-11</span>
+                                <span class="aui-iconfont aui-icon-my"> 1楼 张三 2019-4-11</span>
                             </div>
                             <div class="aui-list-item-text">
                                 加油
@@ -54,7 +54,7 @@
                     <div class="aui-media-list-item-inner">
                         <div class="aui-list-item-inner">
                             <div class="aui-list-item-text">
-                                <span class="aui-iconfont aui-icon-qq"> 2楼 李四 2019-5-1</span>
+                                <span class="aui-iconfont aui-icon-my"> 2楼 李四 2019-5-1</span>
                             </div>
                             <div class="aui-list-item-text">
                                 加油
@@ -150,7 +150,7 @@
         var li= document.createElement("li");
         li.className = "aui-list-item aui-list-item-middle";
         var html = "<div class='aui-media-list-item-inner'><div class='aui-list-item-inner'><div class='aui-list-item-text'>"
-                    + "<span class='aui-iconfont aui-icon-qq'> " + i + "楼 匿名 " + getDate()
+                    + "<span class='aui-iconfont aui-icon-my'> " + i + "楼 匿名 " + getDate()
                     + "</span></div><div class='aui-list-item-text'>"
                     + $api.byId('plnr').value + "</div></div></div>";
         li.innerHTML=html;
