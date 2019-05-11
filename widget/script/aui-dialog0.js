@@ -26,18 +26,37 @@
                 var msgHtml = '<div class="demo-line"></div>' + '<div class="jq-header"><div style="padding:10px;width:110px;text-align:left;">课程名称：</div><select style="padding:10px;direction:rtl;width:130px;" id="kcinfo" placeholder="--请选择--" onchange="changeKC(this)">';
                 if (params.text.indexOf('kc1') != -1) {
                     msgHtml = msgHtml + '<option value ="1" selected>软件编译技术</option><option value ="2">数学建模</option><option value ="3">信息与网络安全</option>';
+                    msgHtml = msgHtml + '<option value ="4">云计算与大数据</option><option value ="5">毛泽东思想和中国特色社会主义理论体系概论</option><option value ="6">Java Web技术</option>';
                     msgHtml = msgHtml + '</select><i onclick="changeKCicon()" style="padding:10px" class="aui-iconfont aui-icon-down"></i></div>' +
                         '<div style="text-align:left;padding:10px" id="jiaoshi">教室：35-203</div><div style="text-align:left;padding:10px" id="laoshi">老师：吴晓琴</div>';
                 } else if (params.text.indexOf('kc2') != -1) {
                     msgHtml = msgHtml + '<option value ="1" >软件编译技术</option><option value ="2" selected>数学建模</option><option value ="3">信息与网络安全</option>';
+                    msgHtml = msgHtml + '<option value ="4">云计算与大数据</option><option value ="5">毛泽东思想和中国特色社会主义理论体系概论</option><option value ="6">Java Web技术</option>';
                     msgHtml = msgHtml + '</select><i onclick="changeKCicon()" style="padding:10px" class="aui-iconfont aui-icon-down"></i></div>' +
                         '<div style="text-align:left;padding:10px" id="jiaoshi">教室：35-212</div><div style="text-align:left;padding:10px" id="laoshi">老师：林传文</div>';
                 } else if (params.text.indexOf('kc3') != -1) {
                     msgHtml = msgHtml + '<option value ="1" >软件编译技术</option><option value ="2">数学建模</option><option value ="3" selected>信息与网络安全</option>';
+                    msgHtml = msgHtml + '<option value ="4">云计算与大数据</option><option value ="5">毛泽东思想和中国特色社会主义理论体系概论</option><option value ="6">Java Web技术</option>';
                     msgHtml = msgHtml + '</select><i onclick="changeKCicon()" style="padding:10px" class="aui-iconfont aui-icon-down"></i></div>' +
                         '<div style="text-align:left;padding:10px" id="jiaoshi">教室：36-201</div><div style="text-align:left;padding:10px" id="laoshi">老师：汪彩梅</div>';
-                } else {
+                } else if (params.text.indexOf('kc4') != -1) {
+                    msgHtml = msgHtml + '<option value ="1" >软件编译技术</option><option value ="2">数学建模</option><option value ="3">信息与网络安全</option>';
+                    msgHtml = msgHtml + '<option value ="4" selected>云计算与大数据</option><option value ="5">毛泽东思想和中国特色社会主义理论体系概论</option><option value ="6">Java Web技术</option>';
+                    msgHtml = msgHtml + '</select><i onclick="changeKCicon()" style="padding:10px" class="aui-iconfont aui-icon-down"></i></div>' +
+                        '<div style="text-align:left;padding:10px" id="jiaoshi">教室：36-610</div><div style="text-align:left;padding:10px" id="laoshi">老师：许强</div>';
+                } else if (params.text.indexOf('kc5') != -1) {
                     msgHtml = msgHtml + '<option value ="1" >软件编译技术</option><option value ="2">数学建模</option><option value ="3" >信息与网络安全</option>';
+                    msgHtml = msgHtml + '<option value ="4" >云计算与大数据</option><option value ="5" selected>毛泽东思想和中国特色社会主义理论体系概论</option><option value ="6">Java Web技术</option>';
+                    msgHtml = msgHtml + '</select><i onclick="changeKCicon()" style="padding:10px" class="aui-iconfont aui-icon-down"></i></div>' +
+                        '<div style="text-align:left;padding:10px" id="jiaoshi">教室：36-3JT</div><div style="text-align:left;padding:10px" id="laoshi">老师：金小方</div>';
+                } else if (params.text.indexOf('kc6') != -1) {
+                    msgHtml = msgHtml + '<option value ="1" >软件编译技术</option><option value ="2">数学建模</option><option value ="3" >信息与网络安全</option>';
+                    msgHtml = msgHtml + '<option value ="4" >云计算与大数据</option><option value ="5">毛泽东思想和中国特色社会主义理论体系概论</option><option value ="6" selected>Java Web技术</option>';
+                    msgHtml = msgHtml + '</select><i onclick="changeKCicon()" style="padding:10px" class="aui-iconfont aui-icon-down"></i></div>' +
+                        '<div style="text-align:left;padding:10px" id="jiaoshi">教室：36-201</div><div style="text-align:left;padding:10px" id="laoshi">老师：周艳玲</div>';
+                } else {
+                    msgHtml = msgHtml + '<option value ="1" selected>软件编译技术</option><option value ="2">数学建模</option><option value ="3" >信息与网络安全</option>';
+                    msgHtml = msgHtml + '<option value ="4" >云计算与大数据</option><option value ="5">毛泽东思想和中国特色社会主义理论体系概论</option><option value ="6">Java Web技术</option>';
                     msgHtml = msgHtml + '</select><i onclick="changeKCicon()" style="padding:10px" class="aui-iconfont aui-icon-down"></i></div>' +
                         '<div style="text-align:left;padding:10px" id="jiaoshi">教室：35-203</div><div style="text-align:left;padding:10px" id="laoshi">老师：吴晓琴</div>';
                 }

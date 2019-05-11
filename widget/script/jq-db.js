@@ -12,12 +12,55 @@
   * @param: callback 回调
   */
  function fnInitDB(callback) {
+     console.log(1111)
      db = api.require('db');
+      console.log(22222)
      db.openDatabase({
          name: DATABASE
      }, function(ret, err) {
+         console.log(333)
          callback();
      });
+ }
+
+ /**
+  * @author: zuoc
+  * @date: 2019-05-11
+  * @desc: 在线选课表初始化
+  */
+ function fnInitXkymTable(callback) {
+     db = api.require('db');
+     db.executeSqlSync({
+         name: DATABASE,
+         sql: 'CREATE TABLE XKYM(ID VARCHAR(100), KCMC VARCHAR(100), KCDM VARCHAR(100), JSXM VARCHAR(100), SKSJ VARCHAR(100), SKDD VARCHAR(100),' +
+             'XF VARCHAR(100), ZXS VARCHAR(100), QSJSZ VARCHAR(100), RL VARCHAR(100), YL VARCHAR(100), KCGS VARCHAR(100), KCXZ VARCHAR(100),' +
+             ' XQDM VARCHAR(100), KKXY VARCHAR(100), KSSJ VARCHAR(100), TYPE VARCHAR(100)'
+     }, callback);
+ }
+
+ /**
+  * @author: zuoc
+  * @date: 2019-05-11
+  * @desc: 根据类型查询课程
+  */
+ function fnSelectXkymByType(type, callback) {
+     db = api.require('db');
+     db.selectSql({
+         name: DATABASE,
+         sql: 'SELECT ID,KCMC,JSXM,KSSJ FROM XKYM WHERE TYPE = "' + type + '"'
+     }, callback);
+ }
+
+ /**
+  * @author: zuoc
+  * @date: 2019-05-11
+  * @desc: 根据主键查询课程
+  */
+ function fnSelectXkymById(id, callback) {
+     db.selectSql({
+         name: DATABASE,
+         sql: 'SELECT * FROM XKYM WHERE ID = "' + id + '"'
+     }, callback);
  }
 
  /**
@@ -71,28 +114,28 @@
          sql: 'CREATE TABLE BBPL(bbId VARCHAR(50), plnr VARCHAR(500), plr VARCHAR(20), plrq VARCHAR(20), sort INTEGER)'
      });
 
-     setTimeout( callback, 4000);
+     setTimeout(callback, 4000);
  }
 
-function clearTable() {
-    db = api.require('db');
-    db.executeSql({
-      name: DATABASE,
-      sql: 'DELETE FROM USERS'
-    });
-    db.executeSql({
-      name: DATABASE,
-      sql: 'DELETE FROM SWZL'
-    });
-    db.executeSql({
-      name: DATABASE,
-      sql: 'DELETE FROM DTFX'
-    });
-    db.executeSql({
-      name: DATABASE,
-      sql: 'DELETE FROM FILE'
-    });
-}
+ function clearTable() {
+     db = api.require('db');
+     db.executeSql({
+         name: DATABASE,
+         sql: 'DELETE FROM USERS'
+     });
+     db.executeSql({
+         name: DATABASE,
+         sql: 'DELETE FROM SWZL'
+     });
+     db.executeSql({
+         name: DATABASE,
+         sql: 'DELETE FROM DTFX'
+     });
+     db.executeSql({
+         name: DATABASE,
+         sql: 'DELETE FROM FILE'
+     });
+ }
  /**
   * @author: zuoc
   * @date: 2018-11-07

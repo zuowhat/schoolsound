@@ -149,21 +149,92 @@
 </body>
 <script type="text/javascript" src="../../script/api.js"></script>
 <script type="text/javascript" src="../../script/aui-tab.js"></script>
+<script type="text/javascript" src="../../script/jq-db.js"></script>
 <script type="text/javascript">
-    var kxkc;
-    var yxkc;
-    var kc1;
-    var kc2;
-    var kc3;
-    var kc4;
+    var kxkc = '';
+    var db;
     apiready = function() {
-        kc1 = buildCourse('kc1', '美术作品欣赏', '张小觅', '2019.04.18', '添加课程');
-        kc2 = buildCourse('kc2', '美术作品欣赏', '张小觅', '2019.04.18', '删除课程');
-        kc3 = buildCourse('kc3', '英汉比较与翻译', '王小琼', '2019.04.21', '添加课程');
-        kc4 = buildCourse('kc4', '英汉比较与翻译', '王小琼', '2019.04.21', '删除课程');
-        kxkc = kc1;
-        yxkc = kc4;
-        $api.html($api.byId('kcList'), kxkc);
+        // db = api.require('db');
+        // db.executeSqlSync({
+        //     name: DATABASE,
+        //     sql: 'DELETE FROM XKYM'
+        // });
+        // $api.rmStorage('xkym');
+        //判断是否已经创建表
+        var xkym = $api.getStorage('xkym');
+        if (xkym == undefined) {
+            db = api.require('db');
+            var ret = db.openDatabaseSync({
+                name: DATABASE
+            });
+
+            var ret = db.executeSqlSync({
+                name: DATABASE,
+                sql: 'CREATE TABLE XKYM(ID VARCHAR(100), KCMC VARCHAR(100), KCDM VARCHAR(100), JSXM VARCHAR(100), SKSJ VARCHAR(100), SKDD VARCHAR(100),' +
+                    'XF VARCHAR(100), ZXS VARCHAR(100), QSJSZ VARCHAR(100), RL VARCHAR(100), YL VARCHAR(100), KCGS VARCHAR(100), KCXZ VARCHAR(100),' +
+                    ' XQDM VARCHAR(100), KKXY VARCHAR(100), KSSJ VARCHAR(100), TYPE VARCHAR(100))'
+            });
+
+            var sql1 = 'INSERT INTO XKYM VALUES("1","美术作品欣赏","113520000","张小觅","周三第9,10节","3-305","1","2.0-0.0","05-12",' +
+                '"100","86","公共选修课","公共选修课","南校区","教育系","2019.04.21","0")';
+            var ret = db.executeSqlSync({
+                name: DATABASE,
+                sql: sql1
+            });
+
+            var sql2 = 'INSERT INTO XKYM VALUES("2","英汉比较与翻译","252180029","王小琼","周二第9,10节","9-301","1","2.0-0.0","05-12",' +
+                '"50","38","公共选修课","公共选修课","南校区","外国语言文学系","2019.06.29","0")';
+            db.executeSqlSync({
+                name: DATABASE,
+                sql: sql2
+            });
+
+            var sql2 = 'INSERT INTO XKYM VALUES("3","民俗资源与旅游","251190016","公选课","周二第9,10节","9-301","1","2.0-0.0","05-12",' +
+                '"50","38","公共选修课","公共选修课","南校区","外国语言文学系","2019.06.29","0")';
+            db.executeSqlSync({
+                name: DATABASE,
+                sql: sql2
+            });
+
+            var sql2 = 'INSERT INTO XKYM VALUES("4","九型人格之职场心理","251190016","公选课","周二第9,10节","9-301","1","2.0-0.0","05-12",' +
+                '"50","38","公共选修课","公共选修课","南校区","外国语言文学系","2019.06.29","0")';
+            db.executeSqlSync({
+                name: DATABASE,
+                sql: sql2
+            });
+
+            var sql2 = 'INSERT INTO XKYM VALUES("5","什么是科学","251190016","公选课","周二第9,10节","9-301","1","2.0-0.0","05-12",' +
+                '"50","38","公共选修课","公共选修课","南校区","外国语言文学系","2019.06.29","0")';
+            db.executeSqlSync({
+                name: DATABASE,
+                sql: sql2
+            });
+
+            var sql2 = 'INSERT INTO XKYM VALUES("6","大学生爱情兵法","251190016","公选课","周二第9,10节","9-301","1","2.0-0.0","05-12",' +
+                '"50","38","公共选修课","公共选修课","南校区","外国语言文学系","2019.06.29","0")';
+            db.executeSqlSync({
+                name: DATABASE,
+                sql: sql2
+            });
+
+            var sql2 = 'INSERT INTO XKYM VALUES("7","《道德经》的智慧启示","251190016","公选课","周二第9,10节","9-301","1","2.0-0.0","05-12",' +
+                '"50","38","公共选修课","公共选修课","南校区","外国语言文学系","2019.06.29","0")';
+            db.executeSqlSync({
+                name: DATABASE,
+                sql: sql2
+            });
+
+            var sql2 = 'INSERT INTO XKYM VALUES("8","20世纪西方音乐","251190016","公选课","周二第9,10节","9-301","1","2.0-0.0","05-12",' +
+                '"50","38","公共选修课","公共选修课","南校区","外国语言文学系","2019.06.29","0")';
+            db.executeSqlSync({
+                name: DATABASE,
+                sql: sql2
+            });
+
+            $api.setStorage('xkym', 'yes');
+        }
+        //查询可选课程
+        queryByType('0');
     }
 
     var tab = new auiTab({
@@ -171,62 +242,51 @@
     }, function(ret) {
         if (ret) {
             if (ret.dom.id == 'item1') {
-                $api.html($api.byId('kcList'), kxkc);
+                queryByType('0');
             } else {
-                $api.html($api.byId('kcList'), yxkc);
+                queryByType('1');
             }
         }
     });
 
     /**
      * @author: zuoc
+     * @date: 2019-05-11
+     * @desc: 添加或删除课程
+     */
+    function queryByType(type) {
+        kxkc = '';
+        db = api.require('db');
+        var ret = db.selectSqlSync({
+            name: DATABASE,
+            sql: 'SELECT ID,KCMC,JSXM,KSSJ FROM XKYM WHERE TYPE = "' + type + '"'
+        });
+        //console.log('表中数据=' + JSON.stringify(ret.data));
+        for (var i in ret.data) {
+            kxkc = kxkc + buildCourse(ret.data[i].ID, ret.data[i].KCMC, ret.data[i].JSXM, ret.data[i].KSSJ, type);
+        }
+        $api.html($api.byId('kcList'), kxkc);
+    }
+
+    /**
+     * @author: zuoc
      * @date: 2019-04-15
      * @desc: 添加或删除课程
      */
-    function changeCourse(source) {
-        var newkc = '';
-        if (source == 'kc1') {
-            if (yxkc == '') {
-                kxkc = kc3;
-                yxkc = kc2;
-                newkc = kxkc;
-            } else {
-                kxkc = '';
-                yxkc = kc2 + kc4;
-                newkc = kxkc;
-            }
-        } else if (source == 'kc2') {
-            if (kxkc == '') {
-                kxkc = kc1;
-                yxkc = kc4;
-                newkc = yxkc;
-            } else {
-                yxkc = '';
-                kxkc = kc1 + kc3;
-                newkc = yxkc;
-            }
-        } else if (source == 'kc3') {
-            if (yxkc == '') {
-                kxkc = kc1;
-                yxkc = kc4;
-                newkc = kxkc;
-            } else {
-                kxkc = '';
-                yxkc = kc2 + kc4;
-                newkc = kxkc;
-            }
-        } else if (source == 'kc4') {
-            if (kxkc == '') {
-                kxkc = kc3;
-                yxkc = kc2;
-                newkc = yxkc;
-            } else {
-                yxkc = '';
-                kxkc = kc1 + kc3;
-                newkc = yxkc;
-            }
+    function changeCourse(id, type) {
+        var typeUpdate = '';
+        if (type == '1') {
+            typeUpdate = '0';
+        } else {
+            typeUpdate = '1';
         }
-        $api.html($api.byId('kcList'), newkc);
+        db = api.require('db');
+        var sql2 = 'UPDATE XKYM SET TYPE=\'' + typeUpdate + '\' WHERE ID=\'' + id + '\'';
+        db.executeSqlSync({
+            name: DATABASE,
+            sql: sql2
+        });
+        queryByType(type);
     }
 
     /**
@@ -234,11 +294,15 @@
      * @date: 2019-04-15
      * @desc: 构建课程html
      */
-    function buildCourse(source, name, teacher, date, type) {
-        var course = '<section class="instruction-box" ><div class="statu" onclick="courseInfo(\'' + source + '\')"><img src="../../image/book.png" /><span class="name">' + name + '</span></div>' +
-            '<div class="operation"><div class="operation1" tapmode onclick="courseInfo(\'' + source + '\')"><span class="icon"></span>' + teacher + '</div>' +
-            '<span class="split"></span><div class="operation2" tapmode onclick="courseInfo(\'' + source + '\')"><span class="icon"></span>' + date + '</div>' +
-            '<div class="delete" tapmode onclick="changeCourse(\'' + source + '\')">' + type + '</div></div></section>';
+    function buildCourse(id, name, teacher, date, type) {
+        var typeStr = '添加课程';
+        if (type == '1') {
+            typeStr = '删除课程';
+        }
+        var course = '<section class="instruction-box" ><div class="statu" onclick="courseInfo(\'' + id + '\')"><img src="../../image/book.png" /><span class="name">' + name + '</span></div>' +
+            '<div class="operation"><div class="operation1" tapmode onclick="courseInfo(\'' + id + '\')"><span class="icon"></span>' + teacher + '</div>' +
+            '<span class="split"></span><div class="operation2" tapmode onclick="courseInfo(\'' + id + '\')"><span class="icon"></span>' + date + '</div>' +
+            '<div class="delete" tapmode onclick="changeCourse(\'' + id + '\', \'' + type + '\')">' + typeStr + '</div></div></section>';
         return course;
     }
 
@@ -247,12 +311,12 @@
      * @date: 2019-04-15
      * @desc: 课程详情页面
      */
-    function courseInfo(source) {
+    function courseInfo(id) {
         api.openWin({
             name: 'courseinfo_win',
             url: 'courseinfo_win.html',
             pageParam: {
-                source: source
+                id: id
             }
         });
     }

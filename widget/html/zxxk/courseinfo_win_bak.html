@@ -43,7 +43,7 @@
         <li class="aui-list-item">
             <div class="aui-list-item-inner">
                 <div class="aui-list-item-label">
-                    <span>教师姓名</span>
+                    <span>教室姓名</span>
                 </div>
                 <div class="aui-list-item-input">
                     <input type="text" value="" id="jsxm">
@@ -179,26 +179,39 @@
     apiready = function() {
         var header = $api.byId('aui-header');
         $api.fixStatusBar(header);
-        var db = api.require('db');
-        var ret = db.selectSqlSync({
-            name: DATABASE,
-            sql: 'SELECT * FROM XKYM WHERE ID = "' + api.pageParam.id + '"'
-        });
-        $api.byId('kcmc').value = ret.data[0].KCMC;
-        $api.byId('kcdm').value = ret.data[0].KCDM;
-        $api.byId('jsxm').value = ret.data[0].JSXM;
-        $api.byId('sksj').value = ret.data[0].SKSJ;
-        $api.byId('skdd').value = ret.data[0].SKDD;
-        $api.byId('xf').value = ret.data[0].XF;
-        $api.byId('zxs').value = ret.data[0].ZXS;
-        $api.byId('qsjsz').value = ret.data[0].QSJSZ;
-        $api.byId('rl').value = ret.data[0].RL;
-        $api.byId('yl').value = ret.data[0].YL;
-        $api.byId('kcgs').value = ret.data[0].KCGS;
-        $api.byId('kcxz').value = ret.data[0].KCXZ;
-        $api.byId('xqdm').value = ret.data[0].XQDM;
-        $api.byId('kkxy').value = ret.data[0].KKXY;
-        $api.byId('kssj').value = ret.data[0].KSSJ;
+        if (api.pageParam.source == 'kc1' || api.pageParam.source == 'kc2') {
+            $api.byId('kcmc').value = '美术作品欣赏';
+            $api.byId('kcdm').value = '251180039';
+            $api.byId('jsxm').value = '张小觅';
+            $api.byId('sksj').value = '周三第9,10节';
+            $api.byId('skdd').value = '3-305';
+            $api.byId('xf').value = '1';
+            $api.byId('zxs').value = '2.0-0.0';
+            $api.byId('qsjsz').value = '06-13';
+            $api.byId('rl').value = '500';
+            $api.byId('yl').value = '421';
+            $api.byId('kcgs').value = '公共选修课';
+            $api.byId('kcxz').value = '公共选修课';
+            $api.byId('xqdm').value = '南校区';
+            $api.byId('kkxy').value = '教务处';
+            $api.byId('kssj').value = '06-29';
+        } else {
+            $api.byId('kcmc').value = '英汉比较与翻译';
+            $api.byId('kcdm').value = '252180029';
+            $api.byId('jsxm').value = '王小琼';
+            $api.byId('sksj').value = '周三第9,10节';
+            $api.byId('skdd').value = '3-305';
+            $api.byId('xf').value = '1';
+            $api.byId('zxs').value = '2.0-0.0';
+            $api.byId('qsjsz').value = '06-13';
+            $api.byId('rl').value = '500';
+            $api.byId('yl').value = '486';
+            $api.byId('kcgs').value = '公共选修课';
+            $api.byId('kcxz').value = '公共选修课';
+            $api.byId('xqdm').value = '南校区';
+            $api.byId('kkxy').value = '教务处';
+            $api.byId('kssj').value = '06-28';
+        }
     };
 </script>
 
